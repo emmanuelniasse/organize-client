@@ -1,0 +1,35 @@
+// Abstract
+@import '../../styles/variables';
+
+.navbar {
+    margin-bottom: 2rem;
+    box-shadow: 0 0 7px 3px gray;
+    font-family: 'Roboto';
+    color: #f1f1f1;
+    color: $primary;
+    padding: 0.6rem 0;
+    &__nav {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-content: space-between;
+        align-items: center;
+
+        &__logo {
+            width: 15rem;
+            img {
+                width: 100%;
+            }
+        }
+
+        &__links {
+            ul {
+                display: flex;
+                justify-content: space-evenly;
+
+                li:not(:last-of-type) {
+                    margin-right: 1rem;
+                }
+            }
+        }
+    }
+}
