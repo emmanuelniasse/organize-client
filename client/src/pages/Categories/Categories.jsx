@@ -29,9 +29,7 @@ export default function Categories() {
                     'http://localhost:3000/categories/'
                 );
                 setCategories(categories.data.result);
-                console.log(categories.data.result);
                 setAreCategoriesFetched(true);
-                console.log('Boucle infinie ?');
             } catch (err) {
                 console.log(
                     'Erreur lors de la requête (categories) : ' + err
@@ -74,8 +72,6 @@ export default function Categories() {
     // Cache les boutons CRUD dans le cas où aucun items n'est sélectionné
     useEffect(() => {
         items.length < 1 && setIsItemSelected(false);
-
-        console.log(items);
     }, [items]);
 
     // Stock l'id des items sélectionnés

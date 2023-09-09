@@ -7,21 +7,30 @@ import Category from '../../Components/Categories/Category/Category';
 import { useParams, Link } from 'react-router-dom';
 
 export default function Subcategories() {
-    let { subcategory } = useParams();
+    let { category } = useParams();
     const [subcategories, setSubcategories] = useState([]);
     const [areSubcategoriesFetched, setAreSubcategoriesFetched] =
         useState(false);
+    const [categoryName, setCategoryName] = useState('');
 
     useEffect(() => {
         const getSubcategories = async () => {
             try {
                 const subcategories = await axios.get(
-                    'http://localhost:3000/subcategories/'
+                    `http://localhost:3000/${category}/subcategories/`
                 );
                 setSubcategories(subcategories.data.result);
-                console.log(subcategories.data.result);
                 setAreSubcategoriesFetched(true);
-                console.log('Boucle infinie ?');
+
+                const categoryResponse = await axios.get(
+                    `http://localhost:3000/categories`
+                );
+
+                const categoriesResult = categoryResponse.data.result;
+                categoriesResult.forEach((categoryResult) => {
+                    categoryResult.slug == category &&
+                        setCategoryName(categoryResult.name);
+                });
             } catch (err) {
                 console.log(
                     'Erreur lors de la requête (subcategories) : ' +
@@ -37,16 +46,16 @@ export default function Subcategories() {
     return (
         <div className='categories'>
             <h1 className='categories__title title-page'>
-                Subcategories {subcategory}
+                {categoryName}
             </h1>
 
-            {subcategories.map((category) => {
+            {subcategories.map((subcategory) => {
                 return (
-                    <li key={category._id}>
-                        <Link to={category.slug}>
+                    <li key={subcategory._id}>
+                        <Link to={`/${category}/${subcategory.slug}`}>
                             <Category
-                                name={category.name}
-                                slug={category.slug}
+                                name={subcategory.name}
+                                slug={subcategory.slug}
                                 setCategories={setSubcategories}
                             />
                         </Link>

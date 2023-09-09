@@ -1,0 +1,325 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap");
+.navbar {
+  margin-bottom: 2rem;
+  -webkit-box-shadow: 0 0 7px 3px gray;
+          box-shadow: 0 0 7px 3px gray;
+  font-family: 'Roboto';
+  color: #f1f1f1;
+  color: #183b6f;
+  padding: 0.6rem 0;
+}
+
+.navbar__nav {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbar__nav__logo {
+  width: 15rem;
+}
+
+.navbar__nav__logo img {
+  width: 100%;
+}
+
+.navbar__nav__links ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.navbar__nav__links ul li:not(:last-of-type) {
+  margin-right: 1rem;
+}
+
+footer {
+  margin-top: 2rem;
+  -webkit-box-shadow: 0 0 7px 3px gray;
+          box-shadow: 0 0 7px 3px gray;
+  font-family: 'Roboto';
+  color: #f1f1f1;
+  background-color: #183b6f;
+  padding: 0.6rem 0;
+}
+
+.footer {
+  margin-top: 2rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+}
+
+.footer__logo {
+  width: 15rem;
+}
+
+.footer__logo img {
+  width: 100%;
+}
+
+.footer__links {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+}
+
+.page__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  min-height: 100vh;
+}
+
+.page__container footer {
+  margin-top: auto;
+}
+
+.category {
+  padding: 0.5rem;
+  -webkit-box-shadow: 0 0 8px 2px lightgray;
+          box-shadow: 0 0 8px 2px lightgray;
+  border-radius: 0.3rem;
+}
+
+.category:hover {
+  -webkit-box-shadow: 0 0 10px 2px #c3c3c3;
+          box-shadow: 0 0 10px 2px #c3c3c3;
+}
+
+.category h3 {
+  font-family: "Playfair Display";
+  margin-bottom: 0.5rem;
+}
+
+.category p {
+  font-family: "Roboto";
+  color: #858585;
+}
+
+.category__checkbox {
+  background-color: #f1f1f1;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #3174d26c;
+  border-radius: 0.2rem;
+}
+
+.category__checkbox__checked {
+  background-color: black;
+  border: 2px solid #f1f1f1;
+}
+
+.form {
+  padding: 1.5rem;
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-radius: 0.3rem;
+  border: 1px solid lightgray;
+  background-color: white;
+  -webkit-box-shadow: 0 0 8px 2px lightgray;
+          box-shadow: 0 0 8px 2px lightgray;
+}
+
+.form > *:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.form__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.categories h1 {
+  font-family: "Roboto";
+}
+
+.categories__buttons {
+  color: #f1f1f1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.categories__form-container, .categories__modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.531);
+}
+
+.categories__list {
+  margin-top: 2rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(300px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.categories__list__item {
+  cursor: pointer;
+}
+
+.categories__list__item:not(.item-selected):hover {
+  background-color: #3174d26c;
+  border-radius: 0.3rem;
+}
+
+/*** GENERAL ***/
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+.container {
+  margin: 0 auto;
+  width: 80vw;
+  max-width: 1300px;
+}
+
+.btn {
+  font-family: "Roboto";
+  height: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0 1rem;
+  -webkit-box-shadow: 0 0 8px 2px lightgray;
+          box-shadow: 0 0 8px 2px lightgray;
+  border-radius: 0.3rem;
+  color: #f1f1f1;
+}
+
+.btn:not(:last-of-type) {
+  margin-right: 1rem;
+}
+
+.btn:hover {
+  -webkit-box-shadow: 0 0 10px 2px #c3c3c3;
+          box-shadow: 0 0 10px 2px #c3c3c3;
+  cursor: pointer;
+}
+
+.btn-add {
+  background-color: #069b06;
+}
+
+.btn-add--plus {
+  background-color: #069b06;
+  font-size: 1.8em;
+  font-weight: 300;
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+}
+
+.btn-update {
+  background-color: #fda33d;
+}
+
+.btn-delete {
+  background-color: #e04f4f;
+}
+
+.btn-cancel {
+  background-color: #183b6f;
+}
+
+.title-page {
+  margin-bottom: 1rem;
+}
+
+input,
+textarea,
+select,
+button {
+  font-size: inherit;
+  border: 1px solid lightgray;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.3rem;
+  background: inherit;
+  font-family: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: none;
+}
+
+.item-selected {
+  background-color: #3174d2;
+  -webkit-box-shadow: 0 8px 6px -6px black !important;
+          box-shadow: 0 8px 6px -6px black !important;
+  color: white;
+  border-radius: 0.3rem;
+  -webkit-transition: 0.15s all ease-out;
+  transition: 0.15s all ease-out;
+}
+
+.item-selected p {
+  color: white !important;
+}
+
+.item-not-selected {
+  -webkit-transition: 0.15s all ease-out;
+  transition: 0.15s all ease-out;
+}
+/*# sourceMappingURL=default.css.map */

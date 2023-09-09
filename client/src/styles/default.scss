@@ -38,6 +38,10 @@ ul li {
     max-width: 1300px;
 }
 
+.my-2 {
+    margin: 2rem auto;
+}
+
 .btn {
     &:not(:last-of-type) {
         margin-right: 1rem;

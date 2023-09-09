@@ -1,27 +1,26 @@
 const express = require('express');
-const subcategoriesRouter = express.Router();
+const itemsRouter = express.Router();
 const { ObjectId } = require('mongodb');
-const Subcategories = require('../schemas/subcategoriesSchema');
+const ItemsSchema = require('../schemas/subcategoriesSchema');
 const { success, error } = require('../functions/functions');
+// let { items } = useParams();
 
-subcategoriesRouter
+itemsRouter
     // READ ALL
-    .get('/:category/subcategories/', async (req, res) => {
+    .get('/items/', async (req, res) => {
         try {
-            console.log(req.params.category);
-            const subcategories = await Subcategories.find({
-                category: req.params.category,
-            });
-            res.status(200).json(success(subcategories));
+            const items = await ItemsSchema.find();
+            res.status(200).json(success(items));
+            console.log(items);
         } catch (err) {
             res.status(500).json(error(err.message));
         }
     })
 
     // READ ONE
-    .get('/subcategories/:id', async (req, res) => {
+    .get('/items/:id', async (req, res) => {
         try {
-            const singleCategory = await Subcategories.findById(
+            const singleCategory = await ItemsSchema.findById(
                 req.params.id
             );
             if (!singleCategory) {
@@ -35,65 +34,58 @@ subcategoriesRouter
     })
 
     // INSERT ONE
-    .post('/subcategories', async (req, res) => {
+    .post('/items', async (req, res) => {
         try {
             const { name, slug } = req.body;
             // Vérifie si la categorie est déjà crée
-            const thisSubcategory = await Subcategories.findOne({
+            const thisItem = await ItemsSchema.findOne({
                 name,
             });
 
-            if (
-                thisSubcategory &&
-                thisSubcategory._id != req.params.id
-            ) {
+            if (thisItem && thisItem._id != req.params.id) {
                 throw new Error('Sous-catégorie déjà créée');
             }
 
             // Créer une nouvelle sous-catégorie
-            const subcategoryToAdd = new Subcategories({
+            const itemToAdd = new ItemsSchema({
                 name,
                 slug,
             });
 
-            const savedSubcategory = await subcategoryToAdd.save();
-            res.status(200).json(success(savedSubcategory));
+            const savedItem = await itemToAdd.save();
+            res.status(200).json(success(savedItem));
         } catch (err) {
             res.status(500).json(error(err.message));
         }
     })
 
     // UPDATE ONE
-    .put('/subcategories/:id', async (req, res) => {
+    .put('/items/:id', async (req, res) => {
         try {
             const { name, slug } = req.body;
 
-            let subcategoryToUpdate = {
+            let itemToUpdate = {
                 name,
                 slug,
             };
 
             // Vérifie si la categorie est déjà insérée
-            const subcategoryNameExist = await Subcategories.findOne({
+            const itemNameExist = await ItemsSchema.findOne({
                 name,
             });
-            if (
-                subcategoryNameExist &&
-                subcategoryNameExist._id != req.params.id
-            ) {
+            if (itemNameExist && itemNameExist._id != req.params.id) {
                 throw new Error('Sous-catégorie déjà insérée');
             }
 
             // Insère les nouvelles valeurs
-            const updatedSubcategory =
-                await Subcategories.findOneAndUpdate(
-                    { _id: new ObjectId(req.params.id) },
-                    {
-                        $set: subcategoryToUpdate,
-                    }
-                );
+            const updatedItem = await ItemsSchema.findOneAndUpdate(
+                { _id: new ObjectId(req.params.id) },
+                {
+                    $set: itemToUpdate,
+                }
+            );
 
-            if (!updatedSubcategory) {
+            if (!updatedItem) {
                 throw new Error(
                     "La sous-catégorie avec l'id : '" +
                         req.params.id +
@@ -101,16 +93,16 @@ subcategoriesRouter
                 );
             }
 
-            res.status(200).json(success(subcategoryToUpdate));
+            res.status(200).json(success(itemToUpdate));
         } catch (err) {
             res.status(500).json(error(err.message));
         }
     })
 
     // DELETE ONE
-    .delete('/subcategories/:id', async (req, res) => {
+    .delete('/items/:id', async (req, res) => {
         try {
-            const deletedCount = await Subcategories.deleteOne({
+            const deletedCount = await ItemsSchema.deleteOne({
                 _id: new ObjectId(req.params.id),
             });
 
@@ -124,4 +116,4 @@ subcategoriesRouter
         }
     });
 
-module.exports = subcategoriesRouter;
+module.exports = itemsRouter;
