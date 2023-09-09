@@ -1,3 +1,5 @@
-# efrei_premium
+# ORGANIZE | PROJET PERSO
 
-### Projet noté / Cours REACT & Webservices
+## APPLICATION WEB
+
+Application web de gestion de budget sous forme d'enveloppes
