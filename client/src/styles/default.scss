@@ -2,8 +2,7 @@
 @import '../Components/Navbar/_Navbar.scss',
     '../Components/Footer/_Footer.scss',
     '../Components/Layout/_Layout.scss',
-    '../Components/Categories/Category/_category.scss',
-    '../styles/form.scss';
+    '../Components/Item/Item/_item.scss', '../styles/form.scss';
 
 // Pages
 @import '../pages/_pages.scss';
@@ -36,6 +35,9 @@ ul li {
     margin: 0 auto;
     width: 80vw;
     max-width: 1300px;
+    @media (max-width: 500px) {
+        width: 96vw;
+    }
 }
 
 .my-2 {

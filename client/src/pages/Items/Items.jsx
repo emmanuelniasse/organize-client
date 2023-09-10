@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Components
-import Item from '../../Components/Categories/Category/Category';
+import Item from '../../Components/Item/Item/Item';
 
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function Items() {
-    let { category, subcategory } = useParams();
+    let { category } = useParams();
     const [items, setItems] = useState([]);
     const [areItemsFetched, setAreItemsFetched] = useState(false);
 
@@ -20,7 +20,6 @@ export default function Items() {
                 setItems(items.data.result);
                 console.log(items.data.result);
                 setAreItemsFetched(true);
-                console.log('Boucle infinie ?');
             } catch (err) {
                 console.log(
                     'Erreur lors de la requête (items) : ' + err

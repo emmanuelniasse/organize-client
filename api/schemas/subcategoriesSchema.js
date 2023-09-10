@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const subcategoriesSchema = new Schema({
     name: String,
     slug: String,
+    category: String,
 });
 
 const Subcategories = mongoose.model(

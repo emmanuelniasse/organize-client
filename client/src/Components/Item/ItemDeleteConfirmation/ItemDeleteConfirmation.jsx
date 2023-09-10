@@ -1,26 +1,34 @@
 import React from 'react';
 import axios from 'axios';
 
-export default function CategoryDeleteConfirm(props) {
+export default function ItemDeleteConfirmation(props) {
+    const {
+        setDeleteConfirmation,
+        handleCancel,
+        setAreDatasFetched,
+        setItems,
+        items,
+        collectionName,
+    } = props;
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        let items = props.items;
 
         try {
             await Promise.all(
                 items.map(async (itemId) => {
                     await axios.delete(
-                        `http://localhost:3000/categories/${itemId}`
+                        `http://localhost:3000/${collectionName}/${itemId}`
                     );
-                    props.setAreCategoriesFetched(false);
+                    setAreDatasFetched(false);
                 })
             );
         } catch (error) {
             console.log('error:', error);
         }
-        props.setAreCategoriesFetched(false);
-        props.setDeleteConfirm(false);
-        props.setItems([]);
+        setAreDatasFetched(false);
+        setDeleteConfirmation(false);
+        setItems([]);
     };
     return (
         <>
@@ -28,7 +36,7 @@ export default function CategoryDeleteConfirm(props) {
                 <div className='form__buttons'>
                     <div
                         className='btn-cancel btn'
-                        onClick={props.handleCancel}
+                        onClick={handleCancel}
                     >
                         Annuler
                     </div>

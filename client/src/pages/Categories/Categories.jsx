@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 // Components
-import Category from '../../Components/Categories/Category/Category';
-import CategoryCheckbox from '../../Components/Categories/CategoryCheckbox/CategoryCheckbox';
-import ClassUpdateForm from '../../Components/Categories/CategoryUpdateForm/CartegoryUpdateForm';
-import ClassAddForm from '../../Components/Categories/CategoryAddForm/CategoryAddForm';
-import DeleteConfirm from '../../Components/Categories/CategoryDeleteConfirm/CategoryDeleteConfirm';
+import Category from '../../Components/Item/Item/Item';
+import Checkbox from '../../Components/Item/ItemCheckbox/ItemCheckbox';
+import AddForm from '../../Components/Item/ItemAddForm/ItemAddForm';
+import UpdateForm from '../../Components/Item/ItemUpdateForm/ItemUpdateForm';
+import DeleteConfirmation from '../../Components/Item/ItemDeleteConfirmation/ItemDeleteConfirmation';
 
 export default function Categories() {
     // States
@@ -17,7 +17,8 @@ export default function Categories() {
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
     const [isUpdateFormVisible, setIsUpdateFormVisible] =
         useState(false);
-    const [deleteConfirm, setDeleteConfirm] = useState(false);
+    const [deleteConfirmation, setDeleteConfirmation] =
+        useState(false);
     const [areCategoriesFetched, setAreCategoriesFetched] =
         useState(false);
 
@@ -41,6 +42,9 @@ export default function Categories() {
         }
     }, [areCategoriesFetched]);
 
+    // PIN : BUTTON ACTIONS à transformer en composant
+    // Annule la selection d'item
+
     // Affiche le formulaire au clic sur le bouton "Ajouter une classe"
     const handleAdd = () => {
         setIsAddFormVisible(true);
@@ -48,12 +52,11 @@ export default function Categories() {
 
     // Cache le formulaire au clic sur le bouton "Annuler"
     const handleCancel = () => {
-        setDeleteConfirm(false);
+        setDeleteConfirmation(false);
         setIsAddFormVisible(false);
         setIsUpdateFormVisible(false);
     };
 
-    // Annule la selection d'item
     const handleCancelSelection = () => {
         setIsItemSelected(false);
         setItems([]);
@@ -61,7 +64,7 @@ export default function Categories() {
 
     // Supprime les categories
     const handleDelete = async () => {
-        setDeleteConfirm(true);
+        setDeleteConfirmation(true);
     };
 
     // Modifie la classe
@@ -84,7 +87,7 @@ export default function Categories() {
                     (prevItem) => prevItem !== itemId
                 );
             } else {
-                // Si l'élément n'est pas présent, on l'ajoute au tableau
+                // Sinon on l'ajoute au tableau
                 return [...prevItems, itemId];
             }
         });
@@ -96,9 +99,20 @@ export default function Categories() {
                 <h1 className='categories__title title-page'>
                     Categories
                 </h1>
-
+                {/* 
+                    PIN :
+                    CRUD BUTTONS À TRANSFORMER EN COMPOSANT
+                */}
                 <div className='categories__buttons'>
-                    {/* CRUD  */}
+                    {!isAddFormVisible && !isItemSelected && (
+                        <div
+                            className='btn btn-add--plus'
+                            onClick={handleAdd}
+                        >
+                            +
+                        </div>
+                    )}
+
                     {isItemSelected && (
                         <>
                             <div
@@ -115,6 +129,7 @@ export default function Categories() {
                                     Modifier
                                 </div>
                             )}
+
                             {!isUpdateFormVisible && (
                                 <div
                                     className='btn-cancel btn'
@@ -125,50 +140,45 @@ export default function Categories() {
                             )}
                         </>
                     )}
-                    {!isAddFormVisible && !isItemSelected && (
-                        <div
-                            className='btn btn-add--plus'
-                            onClick={handleAdd}
-                        >
-                            +
-                        </div>
-                    )}
                 </div>
 
                 {isAddFormVisible && (
                     <div className='categories__form-container'>
-                        <ClassAddForm
+                        <AddForm
                             setIsAddFormVisible={setIsAddFormVisible}
                             handleCancel={handleCancel}
-                            setAreCategoriesFetched={
+                            setAreDatasFetched={
                                 setAreCategoriesFetched
                             }
+                            collection='categories'
                         />
                     </div>
                 )}
 
                 {isUpdateFormVisible && (
                     <div className='categories__form-container'>
-                        <ClassUpdateForm
+                        <UpdateForm
                             setIsUpdateFormVisible={
                                 setIsUpdateFormVisible
                             }
                             handleCancel={handleCancel}
                             items={items}
                             setItems={setItems}
-                            setAreCategoriesFetched={
+                            setAreDatasFetched={
                                 setAreCategoriesFetched
                             }
                         />
                     </div>
                 )}
 
-                {deleteConfirm && (
+                {deleteConfirmation && (
                     <div className='categories__modal'>
-                        <DeleteConfirm
-                            setDeleteConfirm={setDeleteConfirm}
+                        <DeleteConfirmation
+                            setDeleteConfirmation={
+                                setDeleteConfirmation
+                            }
                             handleCancel={handleCancel}
-                            setAreCategoriesFetched={
+                            setAreDatasFetched={
                                 setAreCategoriesFetched
                             }
                             setItems={setItems}
@@ -195,7 +205,7 @@ export default function Categories() {
                                 key={category._id}
                                 className={`categories__list__item ${itemSelectedClass}`}
                             >
-                                <CategoryCheckbox
+                                <Checkbox
                                     setIsItemSelected={
                                         setIsItemSelected
                                     }
@@ -208,7 +218,7 @@ export default function Categories() {
                                         name={category.name}
                                         slug={category.slug}
                                         setCategories={setCategories}
-                                    />
+                                    ></Category>
                                 </Link>
                             </li>
                         );

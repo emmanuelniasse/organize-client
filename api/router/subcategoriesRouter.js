@@ -37,7 +37,7 @@ subcategoriesRouter
     // INSERT ONE
     .post('/subcategories', async (req, res) => {
         try {
-            const { name, slug } = req.body;
+            const { name, slug, category } = req.body;
             // Vérifie si la categorie est déjà crée
             const thisSubcategory = await Subcategories.findOne({
                 name,
@@ -54,6 +54,7 @@ subcategoriesRouter
             const subcategoryToAdd = new Subcategories({
                 name,
                 slug,
+                category,
             });
 
             const savedSubcategory = await subcategoryToAdd.save();

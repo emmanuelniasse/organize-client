@@ -1,29 +1,35 @@
 import React from 'react';
 import axios from 'axios';
-import slugify from 'slugify';
 
-export default function CategoryAddForm(props) {
-    let slugify = require('slugify');
+export default function CategoryUpdateForm(props) {
+    const {
+        items,
+        setAreCategoriesFetched,
+        setIsUpdateFormVisible,
+        setItems,
+        handleCancel,
+    } = props;
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        console.log(event.target[0].value);
+        let itemsSelectionned = items;
+
         // Traitez les données du formulaire ici
-        let category = {
+        let categoryUpdated = {
             name: event.target[0].value,
-            slug: slugify(event.target[0].value).toLowerCase(),
         };
 
         try {
-            await axios.post(
-                `http://localhost:3000/categories/`,
-                category
+            await axios.put(
+                `http://localhost:3000/categories/${itemsSelectionned}`,
+                categoryUpdated
             );
-            props.setAreCategoriesFetched(false);
+            setAreCategoriesFetched(false);
         } catch (error) {
             console.log('error:', error);
         }
-        props.setIsAddFormVisible(false);
+        setIsUpdateFormVisible(false);
+        setItems([]);
     };
     return (
         <>
@@ -38,12 +44,12 @@ export default function CategoryAddForm(props) {
                 <div className='form__buttons'>
                     <div
                         className='btn-cancel btn'
-                        onClick={props.handleCancel}
+                        onClick={handleCancel}
                     >
                         Annuler
                     </div>
-                    <button className='btn-add btn' type='submit'>
-                        Ajouter
+                    <button className='btn-update btn' type='submit'>
+                        Mettre à jour
                     </button>
                 </div>
             </form>
