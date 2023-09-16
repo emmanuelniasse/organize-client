@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Item(props) {
-    const { bg, name, children } = props;
+    const { bg, name } = props;
 
     return (
         // PIN
@@ -12,7 +12,6 @@ export default function Item(props) {
                 Lorem ipsum dolor, sit amet consectetur adipisicing
                 elit.
             </p>
-            {children}
         </div>
     );
 }

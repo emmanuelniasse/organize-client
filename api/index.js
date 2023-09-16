@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Uniquement "/" car tout est géré dans les routers
 app.use('/', categoriesRouter);
 app.use('/', subcategoriesRouter);
-app.use('/:category/:subcategory/', itemsRouter);
+app.use('/', itemsRouter);
 
 app.listen(config.PORT, () => {
     console.log('Server listening on port ' + config.PORT);

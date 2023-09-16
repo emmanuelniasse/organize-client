@@ -2,7 +2,8 @@
 @import '../Components/Navbar/_Navbar.scss',
     '../Components/Footer/_Footer.scss',
     '../Components/Layout/_Layout.scss',
-    '../Components/Item/Item/_item.scss', '../styles/form.scss';
+    '../Components/Item/Item/_item.scss',
+    '../Components/Item/ListItem/listItem.scss', '../styles/form.scss';
 
 // Pages
 @import '../pages/_pages.scss';

@@ -3,7 +3,9 @@ import axios from 'axios';
 import slugify from 'slugify';
 
 export default function ItemAddForm(props) {
+    const slugify = require('slugify');
     const {
+        subcategoryName,
         categoryName,
         collectionName,
         setAreDatasFetched,
@@ -11,17 +13,13 @@ export default function ItemAddForm(props) {
         handleCancel,
     } = props;
 
-    let slugify = require('slugify');
-
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        console.log(event.target[0].value);
-
-        let collection = collectionName;
 
         let itemCollection;
 
-        switch (collection) {
+        // Check collection name
+        switch (collectionName) {
             case 'categories':
                 itemCollection = {
                     name: event.target[0].value,
@@ -39,12 +37,24 @@ export default function ItemAddForm(props) {
                     category: slugify(categoryName).toLowerCase(),
                 };
                 break;
+            case 'itemslist':
+                itemCollection = {
+                    name: event.target[0].value,
+                    slug: slugify(
+                        event.target[0].value
+                    ).toLowerCase(),
+                    category: slugify(categoryName).toLowerCase(),
+                    subcategory:
+                        slugify(subcategoryName).toLowerCase(),
+                };
+                break;
             default:
-                console.log(`aucune.`);
+                break;
         }
+
         try {
             await axios.post(
-                `http://localhost:3000/${collection}/`,
+                `http://localhost:3000/${collectionName}`,
                 itemCollection
             );
             setAreDatasFetched(false);
@@ -53,10 +63,10 @@ export default function ItemAddForm(props) {
         }
         setIsAddFormVisible(false);
     };
+
     return (
         <>
             <form onSubmit={handleFormSubmit} className='form'>
-                {/* Ajoutez vos champs de formulaire ici */}
                 <input
                     type='text'
                     name='name'
