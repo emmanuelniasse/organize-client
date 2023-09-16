@@ -4,10 +4,11 @@ import axios from 'axios';
 export default function CategoryUpdateForm(props) {
     const {
         items,
-        setAreCategoriesFetched,
+        setAreDatasFetched,
         setIsUpdateFormVisible,
         setItems,
         handleCancel,
+        collectionName,
     } = props;
 
     const handleFormSubmit = async (event) => {
@@ -21,10 +22,10 @@ export default function CategoryUpdateForm(props) {
 
         try {
             await axios.put(
-                `http://localhost:3000/categories/${itemsSelectionned}`,
+                `http://localhost:3000/${collectionName}/${itemsSelectionned}`,
                 categoryUpdated
             );
-            setAreCategoriesFetched(false);
+            setAreDatasFetched(false);
         } catch (error) {
             console.log('error:', error);
         }

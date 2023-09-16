@@ -205,6 +205,7 @@ export default function Items() {
                         setAreDatasFetched={
                             setAreSubcategoriesFetched
                         }
+                        collectionName='itemslist'
                     />
                 </div>
             )}

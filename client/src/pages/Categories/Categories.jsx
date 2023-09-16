@@ -167,6 +167,7 @@ export default function Categories() {
                             setAreDatasFetched={
                                 setAreCategoriesFetched
                             }
+                            collectionName='categories'
                         />
                     </div>
                 )}

@@ -179,6 +179,7 @@ export default function Subcategories() {
                         setAreDatasFetched={
                             setAreSubcategoriesFetched
                         }
+                        collectionName='subcategories'
                     />
                 </div>
             )}
