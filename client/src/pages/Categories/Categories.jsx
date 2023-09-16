@@ -150,7 +150,7 @@ export default function Categories() {
                             setAreDatasFetched={
                                 setAreCategoriesFetched
                             }
-                            collection='categories'
+                            collectionName='categories'
                         />
                     </div>
                 )}
@@ -183,6 +183,7 @@ export default function Categories() {
                             }
                             setItems={setItems}
                             items={items}
+                            collectionName='categories'
                         />
                     </div>
                 )}

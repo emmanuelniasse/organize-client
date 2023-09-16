@@ -10,6 +10,7 @@ export default function ItemDeleteConfirmation(props) {
         items,
         collectionName,
     } = props;
+    console.log(collectionName);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

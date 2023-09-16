@@ -7,7 +7,7 @@ import Item from '../../Components/Item/Item/Item';
 import { useParams } from 'react-router-dom';
 
 export default function Items() {
-    let { category } = useParams();
+    let { category, subcategory } = useParams();
     const [items, setItems] = useState([]);
     const [areItemsFetched, setAreItemsFetched] = useState(false);
 
@@ -34,7 +34,7 @@ export default function Items() {
     return (
         <div className='categories'>
             <h1 className='categories__title title-page'>
-                Items {category}
+                Items {subcategory}
             </h1>
 
             {items.map((item) => {

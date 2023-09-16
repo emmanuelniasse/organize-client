@@ -16,29 +16,28 @@ export default function ItemAddForm(props) {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         console.log(event.target[0].value);
-        // Traitez les données du formulaire ici
 
         let collection = collectionName;
-
-        let categoriesItem = {
-            name: event.target[0].value,
-            slug: slugify(event.target[0].value).toLowerCase(),
-        };
-
-        let subcategoriesItem = {
-            name: event.target[0].value,
-            slug: slugify(event.target[0].value).toLowerCase(),
-            category: slugify(categoryName).toLowerCase(),
-        };
 
         let itemCollection;
 
         switch (collection) {
             case 'categories':
-                itemCollection = categoriesItem;
+                itemCollection = {
+                    name: event.target[0].value,
+                    slug: slugify(
+                        event.target[0].value
+                    ).toLowerCase(),
+                };
                 break;
             case 'subcategories':
-                itemCollection = subcategoriesItem;
+                itemCollection = {
+                    name: event.target[0].value,
+                    slug: slugify(
+                        event.target[0].value
+                    ).toLowerCase(),
+                    category: slugify(categoryName).toLowerCase(),
+                };
                 break;
             default:
                 console.log(`aucune.`);
