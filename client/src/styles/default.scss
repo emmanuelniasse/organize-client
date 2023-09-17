@@ -127,3 +127,9 @@ button {
 .item-not-selected {
     transition: 0.15s all ease-out;
 }
+
+.breadcrumb {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: $itemSelected;
+}

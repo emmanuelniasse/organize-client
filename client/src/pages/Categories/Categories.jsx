@@ -43,7 +43,6 @@ export default function Categories() {
     }, [areCategoriesFetched]);
 
     // PIN : BUTTON ACTIONS à transformer en composant
-    // Annule la selection d'item
 
     // Affiche le formulaire au clic sur le bouton "Ajouter une classe"
     const handleAdd = () => {
@@ -97,7 +96,7 @@ export default function Categories() {
         <>
             <div className='categories'>
                 <h1 className='categories__title title-page'>
-                    Categories
+                    Catégories
                 </h1>
                 {/* 
                     PIN :

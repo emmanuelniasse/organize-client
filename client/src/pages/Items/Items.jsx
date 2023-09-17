@@ -136,9 +136,14 @@ export default function Items() {
 
     return (
         <div className='categories'>
+            <ul className='breadcrumb'>
+                <Link to='/'>Catégories</Link> {' > '}
+                <Link to={'/' + category}>{categoryName}</Link>
+            </ul>
             <h1 className='categories__title title-page'>
                 {subcategoryName}
             </h1>
+
             <div className='categories__buttons'>
                 {!isAddFormVisible && !isItemSelected && (
                     <div
