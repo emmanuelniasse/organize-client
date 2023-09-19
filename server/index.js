@@ -30,3 +30,6 @@ app.use('/', itemsRouter);
 app.listen(config.PORT, () => {
     console.log('Server listening on port ' + config.PORT);
 });
+
+// Export the Express API
+module.exports = app;
