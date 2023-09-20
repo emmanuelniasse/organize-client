@@ -22,7 +22,7 @@ export default function CategoryUpdateForm(props) {
 
         try {
             await axios.put(
-                `http://localhost:3000/${collectionName}/${itemsSelectionned}`,
+                `https://tst2-ten.vercel.app/${collectionName}/${itemsSelectionned}`,
                 categoryUpdated
             );
             setAreDatasFetched(false);

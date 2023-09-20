@@ -42,7 +42,7 @@ export default function Items() {
                  */
                 // Get the full subcategory name from the slug
                 const subcategoriesResponse = await axios.get(
-                    `http://localhost:3000/${category}/subcategories`
+                    `https://tst2-ten.vercel.app/${category}/subcategories`
                 );
 
                 const subcategoriesResult =
@@ -55,7 +55,7 @@ export default function Items() {
 
                 // Get the full category name from the slug
                 const categoryResponse = await axios.get(
-                    `http://localhost:3000/categories`
+                    `https://tst2-ten.vercel.app//categories`
                 );
                 const categoriesResult = categoryResponse.data.result;
                 categoriesResult.forEach((categoryResult) => {
@@ -67,7 +67,7 @@ export default function Items() {
 
                 // API Request
                 const itemsList = await axios.get(
-                    `http://localhost:3000/${category}/${subcategory}/itemslist`
+                    `https://tst2-ten.vercel.app//${category}/${subcategory}/itemslist`
                 );
                 setSubcategories(itemsList.data.result);
                 setAreSubcategoriesFetched(true);

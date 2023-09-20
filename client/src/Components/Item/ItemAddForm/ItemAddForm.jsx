@@ -54,7 +54,8 @@ export default function ItemAddForm(props) {
 
         try {
             await axios.post(
-                `http://localhost:3000/${collectionName}`,
+                `https://tst2-ten.vercel.app/${collectionName}`,
+
                 itemCollection
             );
             setAreDatasFetched(false);

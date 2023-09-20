@@ -32,13 +32,13 @@ export default function Subcategories() {
         const getSubcategories = async () => {
             try {
                 const subcategories = await axios.get(
-                    `http://localhost:3000/${category}/subcategories/`
+                    `https://tst2-ten.vercel.app/${category}/subcategories/`
                 );
                 setSubcategories(subcategories.data.result);
                 setAreSubcategoriesFetched(true);
 
                 const categoryResponse = await axios.get(
-                    `http://localhost:3000/categories`
+                    `https://tst2-ten.vercel.app/categories`
                 );
 
                 const categoriesResult = categoryResponse.data.result;
