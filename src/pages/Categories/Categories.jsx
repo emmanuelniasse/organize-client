@@ -27,7 +27,7 @@ export default function Categories() {
         const getCategories = async () => {
             try {
                 const categories = await axios.get(
-                    'https://tst2-ten.vercel.app/categories/'
+                    `${process.env.REACT_APP_API_URI}/categories/`
                 );
                 setCategories(categories.data.result);
                 setAreCategoriesFetched(true);

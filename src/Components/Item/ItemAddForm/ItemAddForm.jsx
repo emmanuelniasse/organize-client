@@ -54,7 +54,7 @@ export default function ItemAddForm(props) {
 
         try {
             await axios.post(
-                `https://tst2-ten.vercel.app/${collectionName}`,
+                `${process.env.REACT_APP_API_URI}/${collectionName}`,
 
                 itemCollection
             );

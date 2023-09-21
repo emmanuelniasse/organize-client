@@ -18,7 +18,7 @@ export default function ItemDeleteConfirmation(props) {
             await Promise.all(
                 items.map(async (itemId) => {
                     await axios.delete(
-                        `https://tst2-ten.vercel.app//${collectionName}/${itemId}`
+                        `${process.env.REACT_APP_API_URI}/${collectionName}/${itemId}`
                     );
                     setAreDatasFetched(false);
                 })

@@ -3,17 +3,18 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
 // Components
-import Category from '../../Components/Item/Item/Item';
+import Item from '../../Components/Item/ListItem/listItem';
 import Checkbox from '../../Components/Item/ItemCheckbox/ItemCheckbox';
 import AddForm from '../../Components/Item/ItemAddForm/ItemAddForm';
 import UpdateForm from '../../Components/Item/ItemUpdateForm/ItemUpdateForm';
 import DeleteConfirmation from '../../Components/Item/ItemDeleteConfirmation/ItemDeleteConfirmation';
 
-export default function Subcategories() {
+export default function Items() {
     // States
-    const [subcategories, setSubcategories] = useState([]);
+    const [subcategories1, setSubcategories] = useState([]);
     const [areSubcategoriesFetched, setAreSubcategoriesFetched] =
         useState(false);
+    const [subcategoryName, setSubcategoryName] = useState('');
     const [categoryName, setCategoryName] = useState('');
     const [items, setItems] = useState([]);
     const [isItemSelected, setIsItemSelected] = useState(false);
@@ -25,27 +26,51 @@ export default function Subcategories() {
         useState(false);
 
     // Params
-    let { category } = useParams();
+    let { category, subcategory } = useParams();
 
     // Récupération des sous-catégories en BD
     useEffect(() => {
         const getSubcategories = async () => {
             try {
-                const subcategories = await axios.get(
-                    `https://tst2-ten.vercel.app/${category}/subcategories/`
+                /**
+                 * PIN : Voir pour externaliser ce bloc et le rendre disponible à toutes les pages
+                 *
+                 * getParents(category){
+                 *  // get full category / subcategory names
+                 * }
+                 *
+                 */
+                // Get the full subcategory name from the slug
+                const subcategoriesResponse = await axios.get(
+                    `${process.env.REACT_APP_API_URI}/${category}/subcategories`
                 );
-                setSubcategories(subcategories.data.result);
-                setAreSubcategoriesFetched(true);
 
+                const subcategoriesResult =
+                    subcategoriesResponse.data.result;
+
+                subcategoriesResult.forEach((subcategoryResult) => {
+                    subcategoryResult.slug === subcategory &&
+                        setSubcategoryName(subcategoryResult.name);
+                });
+
+                // Get the full category name from the slug
                 const categoryResponse = await axios.get(
-                    `https://tst2-ten.vercel.app/categories`
+                    `${process.env.REACT_APP_API_URI}/categories`
                 );
-
                 const categoriesResult = categoryResponse.data.result;
                 categoriesResult.forEach((categoryResult) => {
-                    categoryResult.slug == category &&
+                    categoryResult.slug === category &&
                         setCategoryName(categoryResult.name);
                 });
+
+                // Fin du block
+
+                // API Request
+                const itemsList = await axios.get(
+                    `${process.env.REACT_APP_API_URI}/${category}/${subcategory}/itemslist`
+                );
+                setSubcategories(itemsList.data.result);
+                setAreSubcategoriesFetched(true);
             } catch (err) {
                 console.log(
                     'Erreur lors de la requête (subcategories) : ' +
@@ -100,7 +125,7 @@ export default function Subcategories() {
             if (prevItems.includes(itemId)) {
                 // Si l'élément est déjà présent, on le supprime du tableau
                 return prevItems.filter(
-                    (prevItem) => prevItem !== itemId
+                    (prevItemId) => prevItemId !== itemId
                 );
             } else {
                 // Sinon on l'ajoute au tableau
@@ -112,10 +137,11 @@ export default function Subcategories() {
     return (
         <div className='categories'>
             <ul className='breadcrumb'>
-                <Link to='/'>Catégories</Link>
+                <Link to='/'>Catégories</Link> {' > '}
+                <Link to={'/' + category}>{categoryName}</Link>
             </ul>
             <h1 className='categories__title title-page'>
-                {categoryName}
+                {subcategoryName}
             </h1>
 
             <div className='categories__buttons'>
@@ -136,7 +162,7 @@ export default function Subcategories() {
                         >
                             Supprimer
                         </div>
-                        {items.length == 1 && (
+                        {items.length === 1 && (
                             <div
                                 className='btn-update btn'
                                 onClick={handleUpdate}
@@ -165,8 +191,9 @@ export default function Subcategories() {
                         setAreDatasFetched={
                             setAreSubcategoriesFetched
                         }
-                        collectionName='subcategories'
+                        collectionName='itemslist'
                         categoryName={categoryName}
+                        subcategoryName={subcategory}
                     />
                 </div>
             )}
@@ -183,7 +210,7 @@ export default function Subcategories() {
                         setAreDatasFetched={
                             setAreSubcategoriesFetched
                         }
-                        collectionName='subcategories'
+                        collectionName='itemslist'
                     />
                 </div>
             )}
@@ -198,13 +225,13 @@ export default function Subcategories() {
                         }
                         setItems={setItems}
                         items={items}
-                        collectionName='subcategories'
+                        collectionName='itemslist'
                     />
                 </div>
             )}
 
             <ul className='categories__list'>
-                {subcategories.map((subcategory) => {
+                {subcategories1.map((subcategory) => {
                     let itemSelectedClass = items.includes(
                         subcategory._id
                     )
@@ -227,15 +254,14 @@ export default function Subcategories() {
                                 handleListItems={handleListItems}
                                 categoryId={subcategory._id}
                             />
-                            <Link
+                            {/* <Link
                                 to={`/${category}/${subcategory.slug}`}
-                            >
-                                <Category
-                                    name={subcategory.name}
-                                    slug={subcategory.slug}
-                                    setCategories={setSubcategories}
-                                />
-                            </Link>
+                            > */}
+                            <Item
+                                name={subcategory.name}
+                                setCategories={setSubcategories}
+                            />
+                            {/* </Link> */}
                         </li>
                     );
                 })}
