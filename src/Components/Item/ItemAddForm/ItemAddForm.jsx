@@ -4,58 +4,20 @@ import slugify from 'slugify';
 
 export default function ItemAddForm(props) {
     const slugify = require('slugify');
-    const {
-        subcategoryName,
-        categoryName,
-        collectionName,
-        setAreDatasFetched,
-        setIsAddFormVisible,
-        handleCancel,
-    } = props;
+    const { setAreDatasFetched, setIsAddFormVisible, handleCancel } =
+        props;
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        let itemCollection;
-
-        // Check collection name
-        switch (collectionName) {
-            case 'categories':
-                itemCollection = {
-                    name: event.target[0].value,
-                    slug: slugify(
-                        event.target[0].value
-                    ).toLowerCase(),
-                };
-                break;
-            case 'subcategories':
-                itemCollection = {
-                    name: event.target[0].value,
-                    slug: slugify(
-                        event.target[0].value
-                    ).toLowerCase(),
-                    category: slugify(categoryName).toLowerCase(),
-                };
-                break;
-            case 'itemslist':
-                itemCollection = {
-                    name: event.target[0].value,
-                    slug: slugify(
-                        event.target[0].value
-                    ).toLowerCase(),
-                    category: slugify(categoryName).toLowerCase(),
-                    subcategory:
-                        slugify(subcategoryName).toLowerCase(),
-                };
-                break;
-            default:
-                break;
-        }
-
+        let itemCollection = {
+            name: event.target[0].value,
+            sum: event.target[1].value,
+            slug: slugify(event.target[0].value).toLowerCase(),
+        };
         try {
             await axios.post(
-                `${process.env.REACT_APP_API_URI}/${collectionName}`,
-
+                `${process.env.REACT_APP_API_URI}/expenses`,
                 itemCollection
             );
             setAreDatasFetched(false);
@@ -71,7 +33,13 @@ export default function ItemAddForm(props) {
                 <input
                     type='text'
                     name='name'
-                    placeholder='Nom de la catégorie'
+                    placeholder='Libellé de la dépense'
+                    required
+                />
+                <input
+                    type='number'
+                    name='sum'
+                    placeholder='Somme'
                     required
                 />
                 <div className='form__buttons'>

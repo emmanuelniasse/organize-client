@@ -1,3 +1,3 @@
 window.env = {
-  "REACT_APP_API_URI": "https://organize-api.vercel.app"
+  "REACT_APP_API_URI": "http://localhost:3000"
 };

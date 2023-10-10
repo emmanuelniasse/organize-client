@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-export default function CategoryUpdateForm(props) {
+export default function ExpenseUpdateForm(props) {
     const {
         items,
         setAreDatasFetched,
@@ -16,14 +16,14 @@ export default function CategoryUpdateForm(props) {
         let itemsSelectionned = items;
 
         // Traitez les données du formulaire ici
-        let categoryUpdated = {
+        let expenseUpdated = {
             name: event.target[0].value,
         };
 
         try {
             await axios.put(
                 `${process.env.REACT_APP_API_URI}/${collectionName}/${itemsSelectionned}`,
-                categoryUpdated
+                expenseUpdated
             );
             setAreDatasFetched(false);
         } catch (error) {

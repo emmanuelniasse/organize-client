@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 // Components
-import Category from '../../Components/Item/Item/Item';
+import Expense from '../../Components/Item/Item/Item';
 import Checkbox from '../../Components/Item/ItemCheckbox/ItemCheckbox';
 import AddForm from '../../Components/Item/ItemAddForm/ItemAddForm';
 import UpdateForm from '../../Components/Item/ItemUpdateForm/ItemUpdateForm';
 import DeleteConfirmation from '../../Components/Item/ItemDeleteConfirmation/ItemDeleteConfirmation';
 
-export default function Categories() {
+export default function Expenses() {
     // States
-    const [categories, setCategories] = useState([]);
+    const [expenses, setExpenses] = useState([]);
     const [isItemSelected, setIsItemSelected] = useState(false);
     const [items, setItems] = useState([]);
     const [isAddFormVisible, setIsAddFormVisible] = useState(false);
@@ -19,28 +19,29 @@ export default function Categories() {
         useState(false);
     const [deleteConfirmation, setDeleteConfirmation] =
         useState(false);
-    const [areCategoriesFetched, setAreCategoriesFetched] =
+    const [areExpensesFetched, setAreExpensesFetched] =
         useState(false);
 
-    // Récupère les categories de la DB
+    // Récupère les expenses de la DB
     useEffect(() => {
-        const getCategories = async () => {
+        const getExpenses = async () => {
+            console.log(process.env.REACT_APP_API_URI);
             try {
-                const categories = await axios.get(
-                    `${process.env.REACT_APP_API_URI}/categories/`
+                const expenses = await axios.get(
+                    `${process.env.REACT_APP_API_URI}/expenses/`
                 );
-                setCategories(categories.data.result);
-                setAreCategoriesFetched(true);
+                setExpenses(expenses.data.result);
+                setAreExpensesFetched(true);
             } catch (err) {
                 console.log(
-                    'Erreur lors de la requête (categories) : ' + err
+                    'Erreur lors de la requête (expenses) : ' + err
                 );
             }
         };
-        if (!areCategoriesFetched) {
-            getCategories();
+        if (!areExpensesFetched) {
+            getExpenses();
         }
-    }, [areCategoriesFetched]);
+    }, [areExpensesFetched]);
 
     // PIN : BUTTON ACTIONS à transformer en composant
 
@@ -61,7 +62,7 @@ export default function Categories() {
         setItems([]);
     };
 
-    // Supprime les categories
+    // Supprime les expenses
     const handleDelete = async () => {
         setDeleteConfirmation(true);
     };
@@ -94,15 +95,15 @@ export default function Categories() {
 
     return (
         <>
-            <div className='categories'>
-                <h1 className='categories__title title-page'>
-                    Catégories
+            <div className='expenses'>
+                <h1 className='expenses__title title-page'>
+                    Dépenses
                 </h1>
                 {/* 
                     PIN :
                     CRUD BUTTONS À TRANSFORMER EN COMPOSANT
                 */}
-                <div className='categories__buttons'>
+                <div className='expenses__buttons'>
                     {!isAddFormVisible && !isItemSelected && (
                         <div
                             className='btn btn-add--plus'
@@ -142,20 +143,18 @@ export default function Categories() {
                 </div>
 
                 {isAddFormVisible && (
-                    <div className='categories__form-container'>
+                    <div className='expenses__form-container'>
                         <AddForm
                             setIsAddFormVisible={setIsAddFormVisible}
                             handleCancel={handleCancel}
-                            setAreDatasFetched={
-                                setAreCategoriesFetched
-                            }
-                            collectionName='categories'
+                            setAreDatasFetched={setAreExpensesFetched}
+                            collectionName='expenses'
                         />
                     </div>
                 )}
 
                 {isUpdateFormVisible && (
-                    <div className='categories__form-container'>
+                    <div className='expenses__form-container'>
                         <UpdateForm
                             setIsUpdateFormVisible={
                                 setIsUpdateFormVisible
@@ -163,48 +162,44 @@ export default function Categories() {
                             handleCancel={handleCancel}
                             items={items}
                             setItems={setItems}
-                            setAreDatasFetched={
-                                setAreCategoriesFetched
-                            }
-                            collectionName='categories'
+                            setAreDatasFetched={setAreExpensesFetched}
+                            collectionName='expenses'
                         />
                     </div>
                 )}
 
                 {deleteConfirmation && (
-                    <div className='categories__modal'>
+                    <div className='expenses__modal'>
                         <DeleteConfirmation
                             setDeleteConfirmation={
                                 setDeleteConfirmation
                             }
                             handleCancel={handleCancel}
-                            setAreDatasFetched={
-                                setAreCategoriesFetched
-                            }
+                            setAreDatasFetched={setAreExpensesFetched}
                             setItems={setItems}
                             items={items}
-                            collectionName='categories'
+                            collectionName='expenses'
                         />
                     </div>
                 )}
 
-                <ul className='categories__list'>
-                    {categories.map((category) => {
+                <ul className='expenses__list'>
+                    {expenses.map((expense) => {
                         let itemSelectedClass = items.includes(
-                            category._id
+                            expense._id
                         )
                             ? 'item-selected'
                             : '';
 
                         let checkboxClass = items.includes(
-                            category._id
+                            expense._id
                         )
-                            ? 'category__checkbox__checked'
+                            ? 'expense__checkbox__checked'
                             : '';
                         return (
                             <li
-                                key={category._id}
-                                className={`categories__list__item ${itemSelectedClass}`}
+                                key={expense._id}
+                                className={`expenses__list__item ${itemSelectedClass}`}
                             >
                                 <Checkbox
                                     setIsItemSelected={
@@ -212,14 +207,15 @@ export default function Categories() {
                                     }
                                     checkboxClass={checkboxClass}
                                     handleListItems={handleListItems}
-                                    categoryId={category._id}
+                                    expenseId={expense._id}
                                 />
-                                <Link to={category.slug}>
-                                    <Category
-                                        name={category.name}
-                                        slug={category.slug}
-                                        setCategories={setCategories}
-                                    ></Category>
+                                <Link to={expense.slug}>
+                                    <Expense
+                                        name={expense.name}
+                                        sum={expense.sum}
+                                        slug={expense.slug}
+                                        setExpenses={setExpenses}
+                                    ></Expense>
                                 </Link>
                             </li>
                         );
