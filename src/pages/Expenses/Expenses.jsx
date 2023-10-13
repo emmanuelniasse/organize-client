@@ -25,12 +25,11 @@ export default function Expenses() {
     // Récupère les expenses de la DB
     useEffect(() => {
         const getExpenses = async () => {
-            console.log(process.env.REACT_APP_API_URI);
             try {
-                const expenses = await axios.get(
+                const expensesResult = await axios.get(
                     `${process.env.REACT_APP_API_URI}/expenses/`
                 );
-                setExpenses(expenses.data.result);
+                setExpenses(expensesResult.data.result);
                 setAreExpensesFetched(true);
             } catch (err) {
                 console.log(
@@ -75,6 +74,7 @@ export default function Expenses() {
     // Cache les boutons CRUD dans le cas où aucun items n'est sélectionné
     useEffect(() => {
         items.length < 1 && setIsItemSelected(false);
+        console.log("Compte le nombre d'items");
     }, [items]);
 
     // Stock l'id des items sélectionnés
@@ -91,6 +91,7 @@ export default function Expenses() {
                 return [...prevItems, itemId];
             }
         });
+        console.log(items);
     };
 
     return (
@@ -112,7 +113,7 @@ export default function Expenses() {
                             +
                         </div>
                     )}
-
+                    {console.log(items)}
                     {isItemSelected && (
                         <>
                             <div
@@ -194,7 +195,7 @@ export default function Expenses() {
                         let checkboxClass = items.includes(
                             expense._id
                         )
-                            ? 'expense__checkbox__checked'
+                            ? 'item__checkbox__checked'
                             : '';
                         return (
                             <li
@@ -213,9 +214,11 @@ export default function Expenses() {
                                     <Expense
                                         name={expense.name}
                                         sum={expense.sum}
+                                        description={
+                                            expense.description
+                                        }
                                         slug={expense.slug}
-                                        setExpenses={setExpenses}
-                                    ></Expense>
+                                    />
                                 </Link>
                             </li>
                         );

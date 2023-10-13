@@ -1,7 +1,12 @@
 import React from 'react';
 
 export default function ItemCheckbox(props) {
-    const { checkboxClass, setIsItemSelected } = props;
+    const {
+        checkboxClass,
+        setIsItemSelected,
+        handleListItems,
+        expenseId,
+    } = props;
 
     let checkedClass;
 
@@ -14,6 +19,7 @@ export default function ItemCheckbox(props) {
             className={'item__checkbox' + checkedClass}
             onClick={() => {
                 setIsItemSelected(true);
+                handleListItems(expenseId);
             }}
         ></div>
     );

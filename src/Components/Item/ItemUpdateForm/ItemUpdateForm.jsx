@@ -40,6 +40,7 @@ export default function ExpenseUpdateForm(props) {
                     type='text'
                     name='name'
                     placeholder='Nom de la catégorie'
+                    autoComplete='off'
                     required
                 />
                 <div className='form__buttons'>
