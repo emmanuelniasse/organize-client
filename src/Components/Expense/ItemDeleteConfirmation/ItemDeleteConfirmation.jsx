@@ -5,10 +5,9 @@ export default function ItemDeleteConfirmation(props) {
     const {
         setDeleteConfirmation,
         handleCancel,
-        setAreDatasFetched,
+        setAreExpensesFetched,
         setItems,
         items,
-        collectionName,
     } = props;
 
     const handleSubmit = async (event) => {
@@ -18,15 +17,15 @@ export default function ItemDeleteConfirmation(props) {
             await Promise.all(
                 items.map(async (itemId) => {
                     await axios.delete(
-                        `${process.env.REACT_APP_API_URI}/${collectionName}/${itemId}`
+                        `${process.env.REACT_APP_API_URI}/expenses/${itemId}`
                     );
-                    setAreDatasFetched(false);
+                    setAreExpensesFetched(false);
                 })
             );
         } catch (error) {
             console.log('error:', error);
         }
-        setAreDatasFetched(false);
+        setAreExpensesFetched(false);
         setDeleteConfirmation(false);
         setItems([]);
     };

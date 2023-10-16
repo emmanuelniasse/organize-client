@@ -3,34 +3,53 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 
-export default function ItemAddForm(props) {
-    const { setAreDatasFetched, setIsAddFormVisible, handleCancel } =
-        props;
+export default function ExpenseAddForm(props) {
+    const {
+        setAreExpensesFetched,
+        setIsAddFormVisible,
+        setIsUpdateFormVisible,
+        handleCancel,
+        action,
+        itemSelected,
+        setItems,
+        completeItem,
+    } = props;
 
     const { register, handleSubmit } = useForm();
-    let itemCollection;
+    let newExpense;
 
+    // States
     const [selectedOption, setSelectedOption] = useState('');
     const [categories, setCategories] = useState('');
-
-    const onSubmit = async (data) => {
-        // Besoin de JSON.stringify(data) pour envoyer en DB ?
-        itemCollection = data;
-        console.log(itemCollection);
-        try {
-            await axios.post(
-                `${process.env.REACT_APP_API_URI}/expenses`,
-                itemCollection
-            );
-            setAreDatasFetched(false);
-        } catch (error) {
-            console.log('error:', error);
-        }
-        setIsAddFormVisible(false);
-    };
-
     const [areCategoriesFetched, setAreCategoriesFetched] =
         useState(false);
+
+    const onSubmit = async (data) => {
+        newExpense = data;
+        try {
+            switch (action) {
+                case 'update':
+                    await axios.put(
+                        `${process.env.REACT_APP_API_URI}/expenses/${itemSelected}`,
+                        newExpense
+                    );
+                    setItems([]);
+                    setIsUpdateFormVisible(false);
+                    break;
+                default:
+                    await axios.post(
+                        `${process.env.REACT_APP_API_URI}/expenses`,
+                        newExpense
+                    );
+                    setIsAddFormVisible(false);
+                    break;
+            }
+            setAreExpensesFetched(false);
+        } catch (error) {
+            console.log('error:', error);
+            // PIN : Throw new err ?
+        }
+    };
 
     useEffect(() => {
         const getCategories = async () => {
@@ -39,6 +58,7 @@ export default function ItemAddForm(props) {
                     `${process.env.REACT_APP_API_URI}/categories`
                 );
                 setCategories(categoriesResult.data.result);
+                setAreCategoriesFetched(true);
             } catch (error) {
                 console.log('error:', error);
             }
@@ -54,7 +74,7 @@ export default function ItemAddForm(props) {
                 <input
                     autoComplete='off'
                     {...register('name')}
-                    placeholder={'Libellé'}
+                    defaultValue={completeItem.name}
                 />
 
                 <select
@@ -70,7 +90,7 @@ export default function ItemAddForm(props) {
                     {categories &&
                         categories.map((category) => (
                             <option
-                                value={category._id} // PIN : je passe l'id, est-ce bien ? C'est pas mieux de passer le slug puis de récup l'id via une requête dans `onSubmit`
+                                value={category._id}
                                 key={category._id}
                             >
                                 {category.name}
@@ -83,6 +103,7 @@ export default function ItemAddForm(props) {
                     type='number'
                     {...register('sum')}
                     placeholder={'Somme'}
+                    defaultValue={completeItem.sum}
                 />
                 <textarea
                     autoComplete='off'
@@ -90,7 +111,9 @@ export default function ItemAddForm(props) {
                     rows='5'
                     cols='33'
                     placeholder={'Description'}
+                    defaultValue={completeItem.description}
                 />
+                <input type='hidden' value={action} />
                 <div className='btn-group'>
                     <input
                         type='submit'

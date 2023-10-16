@@ -29,10 +29,10 @@
 
         &__item {
             cursor: pointer;
-            &:not(.item-selected):hover {
-                background-color: #3174d26c;
-                border-radius: $radius1;
-            }
+            // &:not(.item-selected):hover {
+            //     background-color: #3174d26c;
+            //     border-radius: $radius1;
+            // }
         }
     }
 }

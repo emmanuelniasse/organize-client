@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 // Components
-import Expense from '../../Components/Item/Item/Item';
-import Checkbox from '../../Components/Item/ItemCheckbox/ItemCheckbox';
-import AddForm from '../../Components/Item/ItemAddForm/ItemAddForm';
-import UpdateForm from '../../Components/Item/ItemUpdateForm/ItemUpdateForm';
-import DeleteConfirmation from '../../Components/Item/ItemDeleteConfirmation/ItemDeleteConfirmation';
+import Expense from '../../Components/Expense/ExpenseItem/Expense';
+import AddForm from '../../Components/Expense/ExpenseAddForm/ExpenseAddForm';
+import DeleteConfirmation from '../../Components/Expense/ItemDeleteConfirmation/ItemDeleteConfirmation';
 
 export default function Expenses() {
     // States
@@ -21,6 +18,8 @@ export default function Expenses() {
         useState(false);
     const [areExpensesFetched, setAreExpensesFetched] =
         useState(false);
+
+    const [completeItem, setCompleteItem] = useState('');
 
     // Récupère les expenses de la DB
     useEffect(() => {
@@ -74,7 +73,6 @@ export default function Expenses() {
     // Cache les boutons CRUD dans le cas où aucun items n'est sélectionné
     useEffect(() => {
         items.length < 1 && setIsItemSelected(false);
-        console.log("Compte le nombre d'items");
     }, [items]);
 
     // Stock l'id des items sélectionnés
@@ -92,6 +90,10 @@ export default function Expenses() {
             }
         });
         console.log(items);
+    };
+
+    const handleCompleteExpense = (expense) => {
+        setCompleteItem(expense);
     };
 
     return (
@@ -113,7 +115,6 @@ export default function Expenses() {
                             +
                         </div>
                     )}
-                    {console.log(items)}
                     {isItemSelected && (
                         <>
                             <div
@@ -148,23 +149,28 @@ export default function Expenses() {
                         <AddForm
                             setIsAddFormVisible={setIsAddFormVisible}
                             handleCancel={handleCancel}
-                            setAreDatasFetched={setAreExpensesFetched}
-                            collectionName='expenses'
+                            setAreExpensesFetched={
+                                setAreExpensesFetched
+                            }
+                            action='add'
                         />
                     </div>
                 )}
 
                 {isUpdateFormVisible && (
                     <div className='expenses__form-container'>
-                        <UpdateForm
+                        <AddForm
                             setIsUpdateFormVisible={
                                 setIsUpdateFormVisible
                             }
                             handleCancel={handleCancel}
-                            items={items}
+                            setAreExpensesFetched={
+                                setAreExpensesFetched
+                            }
+                            action='update'
                             setItems={setItems}
-                            setAreDatasFetched={setAreExpensesFetched}
-                            collectionName='expenses'
+                            itemSelected={items}
+                            completeItem={completeItem}
                         />
                     </div>
                 )}
@@ -176,10 +182,11 @@ export default function Expenses() {
                                 setDeleteConfirmation
                             }
                             handleCancel={handleCancel}
-                            setAreDatasFetched={setAreExpensesFetched}
+                            setAreExpensesFetched={
+                                setAreExpensesFetched
+                            }
                             setItems={setItems}
                             items={items}
-                            collectionName='expenses'
                         />
                     </div>
                 )}
@@ -192,34 +199,26 @@ export default function Expenses() {
                             ? 'item-selected'
                             : '';
 
-                        let checkboxClass = items.includes(
-                            expense._id
-                        )
-                            ? 'item__checkbox__checked'
-                            : '';
                         return (
                             <li
                                 key={expense._id}
                                 className={`expenses__list__item ${itemSelectedClass}`}
                             >
-                                <Checkbox
+                                <Expense
+                                    name={expense.name}
+                                    sum={expense.sum}
+                                    description={expense.description}
+                                    slug={expense.slug}
                                     setIsItemSelected={
                                         setIsItemSelected
                                     }
-                                    checkboxClass={checkboxClass}
                                     handleListItems={handleListItems}
                                     expenseId={expense._id}
+                                    handleCompleteExpense={
+                                        handleCompleteExpense
+                                    }
+                                    expenseComplete={expense}
                                 />
-                                <Link to={expense.slug}>
-                                    <Expense
-                                        name={expense.name}
-                                        sum={expense.sum}
-                                        description={
-                                            expense.description
-                                        }
-                                        slug={expense.slug}
-                                    />
-                                </Link>
                             </li>
                         );
                     })}
