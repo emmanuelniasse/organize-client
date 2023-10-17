@@ -12,11 +12,11 @@ export default function ExpenseAddForm(props) {
         action,
         itemSelected,
         setItems,
+        setCompleteItem,
         completeItem,
     } = props;
 
     const { register, handleSubmit } = useForm();
-    let newExpense;
 
     // States
     const [selectedOption, setSelectedOption] = useState('');
@@ -24,16 +24,17 @@ export default function ExpenseAddForm(props) {
     const [areCategoriesFetched, setAreCategoriesFetched] =
         useState(false);
 
-    const onSubmit = async (data) => {
-        newExpense = data;
+    const onSubmit = async (newExpense) => {
         try {
             switch (action) {
                 case 'update':
                     await axios.put(
-                        `${process.env.REACT_APP_API_URI}/expenses/${itemSelected}`,
+                        `${process.env.REACT_APP_API_URI}/expenses/${itemSelected}`, // PIN : au lieu de itemSelected => completeItem._id
                         newExpense
                     );
+
                     setItems([]);
+                    setCompleteItem([]);
                     setIsUpdateFormVisible(false);
                     break;
                 default:
@@ -74,7 +75,10 @@ export default function ExpenseAddForm(props) {
                 <input
                     autoComplete='off'
                     {...register('name')}
-                    defaultValue={completeItem.name}
+                    placeholder={'Libellé'}
+                    defaultValue={
+                        completeItem ? completeItem.name : ''
+                    }
                 />
 
                 <select
@@ -84,8 +88,14 @@ export default function ExpenseAddForm(props) {
                         setSelectedOption(e.target.value)
                     }
                 >
-                    <option value='' defaultValue>
-                        --- Catégorie de la dépense ---
+                    <option
+                        value={
+                            completeItem && completeItem.category._id
+                        }
+                    >
+                        {completeItem
+                            ? completeItem.category.name
+                            : '--- Catégorie de la dépense ---'}
                     </option>
                     {categories &&
                         categories.map((category) => (
@@ -103,7 +113,9 @@ export default function ExpenseAddForm(props) {
                     type='number'
                     {...register('sum')}
                     placeholder={'Somme'}
-                    defaultValue={completeItem.sum}
+                    defaultValue={
+                        completeItem ? completeItem.sum : ''
+                    }
                 />
                 <textarea
                     autoComplete='off'
@@ -111,14 +123,19 @@ export default function ExpenseAddForm(props) {
                     rows='5'
                     cols='33'
                     placeholder={'Description'}
-                    defaultValue={completeItem.description}
+                    defaultValue={
+                        completeItem ? completeItem.description : ''
+                    }
                 />
                 <input type='hidden' value={action} />
                 <div className='btn-group'>
                     <input
                         type='submit'
-                        className='btn btn-add'
-                        value='Ajouter'
+                        className={
+                            'btn ' +
+                            (completeItem ? 'btn-update' : 'btn-add')
+                        }
+                        value={completeItem ? 'Modifier' : 'Ajouter'}
                     />
                     <input
                         className='btn btn-cancel'

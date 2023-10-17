@@ -9,7 +9,7 @@ export default function Expense(props) {
         setIsItemSelected,
         expenseId,
         handleListItems,
-        handleCompleteExpense,
+        // handleCompleteExpense,
         expenseComplete,
     } = props;
 
@@ -18,8 +18,9 @@ export default function Expense(props) {
             className={'expense ' + bg}
             onClick={() => {
                 setIsItemSelected(true);
-                handleListItems(expenseId);
-                handleCompleteExpense(expenseComplete);
+                // handleListItems(expenseId);
+                handleListItems(expenseComplete);
+                // handleCompleteExpense(expenseComplete);
             }}
         >
             <h3>{name}</h3>

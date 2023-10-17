@@ -18,8 +18,7 @@ export default function Expenses() {
         useState(false);
     const [areExpensesFetched, setAreExpensesFetched] =
         useState(false);
-
-    const [completeItem, setCompleteItem] = useState('');
+    const [completeItem, setCompleteItem] = useState([]);
 
     // Récupère les expenses de la DB
     useEffect(() => {
@@ -58,6 +57,7 @@ export default function Expenses() {
     const handleCancelSelection = () => {
         setIsItemSelected(false);
         setItems([]);
+        setCompleteItem([]);
     };
 
     // Supprime les expenses
@@ -76,26 +76,41 @@ export default function Expenses() {
     }, [items]);
 
     // Stock l'id des items sélectionnés
-    // `prevItems` représente la valeur précédente de l'état items
-    const handleListItems = (itemId) => {
-        setItems((prevItems) => {
-            if (prevItems.includes(itemId)) {
+    // `previousItems` représente la valeur précédente de l'état items
+    const handleListItems = (completeExpense) => {
+        setItems((previousItems) => {
+            if (previousItems.includes(completeExpense._id)) {
                 // Si l'élément est déjà présent, on le supprime du tableau
-                return prevItems.filter(
-                    (prevItem) => prevItem !== itemId
+                return previousItems.filter(
+                    (prevItem) => prevItem !== completeExpense._id
                 );
             } else {
                 // Sinon on l'ajoute au tableau
-                return [...prevItems, itemId];
+                return [...previousItems, completeExpense._id];
             }
         });
-        console.log(items);
+
+        setCompleteItem((previousCompleteItems) => {
+            if (previousCompleteItems.includes(completeExpense)) {
+                // Si l'élément est déjà présent, on le supprime du tableau
+                return previousCompleteItems.filter(
+                    (prevCompleteItem) =>
+                        prevCompleteItem !== completeExpense
+                );
+            } else {
+                // Sinon on l'ajoute au tableau
+                return [...previousCompleteItems, completeExpense];
+            }
+        });
     };
 
-    const handleCompleteExpense = (expense) => {
-        setCompleteItem(expense);
-    };
+    // const handleCompleteExpense = (expense) => {
+    //     setCompleteItem(expense);
+    // };
 
+    // PIN : je récup bien
+    console.log('completeItem ' + completeItem && completeItem);
+    console.log('items : ' + items);
     return (
         <>
             <div className='expenses'>
@@ -169,8 +184,9 @@ export default function Expenses() {
                             }
                             action='update'
                             setItems={setItems}
-                            itemSelected={items}
-                            completeItem={completeItem}
+                            setCompleteItem={setCompleteItem}
+                            itemSelected={items} // PIN : itemSelected != completeItem (je souhaite avoir completeItem._id)
+                            completeItem={completeItem[0]}
                         />
                     </div>
                 )}
@@ -214,9 +230,9 @@ export default function Expenses() {
                                     }
                                     handleListItems={handleListItems}
                                     expenseId={expense._id}
-                                    handleCompleteExpense={
-                                        handleCompleteExpense
-                                    }
+                                    // handleCompleteExpense={
+                                    //     handleCompleteExpense
+                                    // }
                                     expenseComplete={expense}
                                 />
                             </li>
