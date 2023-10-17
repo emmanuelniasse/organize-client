@@ -7,6 +7,7 @@ export default function ItemDeleteConfirmation(props) {
         handleCancel,
         setAreExpensesFetched,
         setItems,
+        setCompleteItem,
         items,
     } = props;
 
@@ -28,6 +29,7 @@ export default function ItemDeleteConfirmation(props) {
         setAreExpensesFetched(false);
         setDeleteConfirmation(false);
         setItems([]);
+        setCompleteItem([]);
     };
     return (
         <>

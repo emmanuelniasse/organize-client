@@ -103,14 +103,6 @@ export default function Expenses() {
             }
         });
     };
-
-    // const handleCompleteExpense = (expense) => {
-    //     setCompleteItem(expense);
-    // };
-
-    // PIN : je récup bien
-    console.log('completeItem ' + completeItem && completeItem);
-    console.log('items : ' + items);
     return (
         <>
             <div className='expenses'>
@@ -202,6 +194,7 @@ export default function Expenses() {
                                 setAreExpensesFetched
                             }
                             setItems={setItems}
+                            setCompleteItem={setCompleteItem}
                             items={items}
                         />
                     </div>
