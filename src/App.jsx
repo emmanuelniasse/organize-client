@@ -9,9 +9,9 @@ import Signup from './pages/Signup/Signup';
 export default function App() {
     return (
         <Routes>
-            <Route exact path='/' element={<Login />} />
+            <Route exact path='/' element={<Expenses />} />
+            <Route exact path='/connexion' element={<Login />} />
             <Route exact path='/inscription' element={<Signup />} />
-            <Route exact path='/depenses' element={<Expenses />} />
         </Routes>
     );
 }

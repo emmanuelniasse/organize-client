@@ -1,16 +1,19 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 export default function Signup() {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = async (userPayload) => {
         try {
-            await axios.post(
+            const signupStatus = await axios.post(
                 `${process.env.REACT_APP_API_URI}/signup`,
                 userPayload
             );
+
+            signupStatus.request.status === 200 &&
+                window.location.replace('/connexion');
         } catch (err) {
             console.log(err);
         }
@@ -33,9 +36,12 @@ export default function Signup() {
                 <input
                     type='submit'
                     className={'btn btn-add'}
-                    value={'Connexion'}
+                    value={"S'inscrire"}
                 />
             </form>
+            <Link to='/connexion' className='btn btn-add'>
+                Se connecter
+            </Link>
         </>
     );
 }
