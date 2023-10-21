@@ -1,11 +1,20 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 export default function Login() {
     const { register, handleSubmit } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (userPayload) => {
+        console.log(userPayload);
+        try {
+            await axios.post(
+                `${process.env.REACT_APP_API_URI}/login`,
+                userPayload
+            );
+        } catch (err) {
+            console.log(err);
+        }
     };
     return (
         <>
@@ -13,7 +22,7 @@ export default function Login() {
             <form onSubmit={handleSubmit(onSubmit)} className='form'>
                 <input
                     autoComplete='off'
-                    {...register('username')}
+                    {...register('pseudo')}
                     placeholder={'Pseudo'}
                 />
                 <input
