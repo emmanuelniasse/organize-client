@@ -19,14 +19,16 @@ export default function Expenses() {
     const [areExpensesFetched, setAreExpensesFetched] =
         useState(false);
     const [completeItem, setCompleteItem] = useState([]);
+    console.log(`${process.env.REACT_APP_API_URI}/expenses/`);
 
     // Récupère les expenses de la DB
     useEffect(() => {
         const getExpenses = async () => {
             try {
                 const expensesResult = await axios.get(
-                    `${process.env.REACT_APP_API_URI}/expenses/`
+                    'https://aac3-2a01-e0a-3fe-d8a0-693f-45fa-bff1-8d2f.ngrok-free.app/expenses/'
                 );
+                console.log(expensesResult);
                 setExpenses(expensesResult.data.result);
                 setAreExpensesFetched(true);
             } catch (err) {

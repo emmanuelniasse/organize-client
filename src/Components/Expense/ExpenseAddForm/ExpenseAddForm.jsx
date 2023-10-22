@@ -29,7 +29,7 @@ export default function ExpenseAddForm(props) {
             switch (action) {
                 case 'update':
                     await axios.put(
-                        `${process.env.REACT_APP_API_URI}/expenses/${itemSelected}`, // PIN : au lieu de itemSelected => completeItem._id
+                        `${process.env.REACT_APP_API_URI}/expenses/${itemSelected}`, // PIN : au lieu de itemSelected => completeItem._id ?
                         newExpense
                     );
 
