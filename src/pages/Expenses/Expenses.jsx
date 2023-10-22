@@ -21,7 +21,7 @@ export default function Expenses() {
     const [completeItem, setCompleteItem] = useState([]);
     console.log(`${process.env.REACT_APP_API_URI}/expenses/`);
 
-    // Récupère les expenses de la DB
+    // Récupère les dépenses de la DB
     useEffect(() => {
         const getExpenses = async () => {
             try {
