@@ -25,10 +25,14 @@ export default function Expenses() {
     useEffect(() => {
         const getExpenses = async () => {
             try {
-                const expensesResult = await axios.get({
-                    url: 'https://a991-2a01-e0a-3fe-d8a0-693f-45fa-bff1-8d2f.ngrok-free.app/expenses',
-                    headers: { 'ngrok-skip-browser-warning': 'val' },
-                });
+                const expensesResult = await axios.get(
+                    'https://a991-2a01-e0a-3fe-d8a0-693f-45fa-bff1-8d2f.ngrok-free.app/expenses',
+                    {
+                        headers: {
+                            'ngrok-skip-browser-warning': 'val',
+                        },
+                    }
+                );
                 // const expensesResult = await axios.get(
                 //     `${process.env.REACT_APP_API_URI}/expenses/`
                 // );
