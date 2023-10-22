@@ -26,7 +26,7 @@ export default function Expenses() {
         const getExpenses = async () => {
             try {
                 const expensesResult = await axios.get(
-                    'https://22e6-2a01-e0a-3fe-d8a0-693f-45fa-bff1-8d2f.ngrok-free.app/expenses/',
+                    'https://173d-2a01-e0a-3fe-d8a0-693f-45fa-bff1-8d2f.ngrok-free.app/expenses/',
                     { 'ngrok-skip-browser-warning': '69420' }
                 );
                 // const expensesResult = await axios.get(
