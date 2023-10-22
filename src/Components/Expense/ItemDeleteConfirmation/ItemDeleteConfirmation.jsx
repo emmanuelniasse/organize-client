@@ -22,7 +22,7 @@ export default function ItemDeleteConfirmation(props) {
                         {
                             headers: {
                                 'ngrok-skip-browser-warning':
-                                    'anyValue',
+                                    'anyVal',
                             },
                         }
                     );

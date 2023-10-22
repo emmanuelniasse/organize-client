@@ -13,7 +13,7 @@ export default function Login() {
                 userPayload,
                 {
                     headers: {
-                        'ngrok-skip-browser-warning': 'anyValue',
+                        'ngrok-skip-browser-warning': 'anyVal',
                     },
                 }
             );

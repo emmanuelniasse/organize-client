@@ -16,7 +16,7 @@ export default function Signup() {
                 userPayload,
                 {
                     headers: {
-                        'ngrok-skip-browser-warning': 'anyValue',
+                        'ngrok-skip-browser-warning': 'anyVal',
                     },
                 }
             );

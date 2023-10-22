@@ -29,7 +29,7 @@ export default function Expenses() {
                     `${process.env.REACT_APP_API_URI}/expenses/`,
                     {
                         headers: {
-                            'ngrok-skip-browser-warning': 'anyValue',
+                            'ngrok-skip-browser-warning': 'anyVal',
                         },
                     }
                 );

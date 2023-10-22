@@ -34,7 +34,7 @@ export default function ExpenseAddForm(props) {
                         {
                             headers: {
                                 'ngrok-skip-browser-warning':
-                                    'anyValue',
+                                    'anyVal',
                             },
                         }
                     );
@@ -50,7 +50,7 @@ export default function ExpenseAddForm(props) {
                         {
                             headers: {
                                 'ngrok-skip-browser-warning':
-                                    'anyValue',
+                                    'anyVal',
                             },
                         }
                     );
@@ -71,7 +71,7 @@ export default function ExpenseAddForm(props) {
                     `${process.env.REACT_APP_API_URI}/categories`,
                     {
                         headers: {
-                            'ngrok-skip-browser-warning': 'anyValue',
+                            'ngrok-skip-browser-warning': 'anyVal',
                         },
                     }
                 );
