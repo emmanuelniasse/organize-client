@@ -10,7 +10,12 @@ export default function Login() {
         try {
             const loginStatus = await axios.post(
                 `${process.env.REACT_APP_API_URI}/login`,
-                userPayload
+                userPayload,
+                {
+                    headers: {
+                        'ngrok-skip-browser-warning': 'anyValue',
+                    },
+                }
             );
             loginStatus.request.status === 200 &&
                 window.location.replace('/');

@@ -26,16 +26,13 @@ export default function Expenses() {
         const getExpenses = async () => {
             try {
                 const expensesResult = await axios.get(
-                    'https://a991-2a01-e0a-3fe-d8a0-693f-45fa-bff1-8d2f.ngrok-free.app/expenses',
+                    `${process.env.REACT_APP_API_URI}/expenses/`,
                     {
                         headers: {
-                            'ngrok-skip-browser-warning': 'val',
+                            'ngrok-skip-browser-warning': 'anyValue',
                         },
                     }
                 );
-                // const expensesResult = await axios.get(
-                //     `${process.env.REACT_APP_API_URI}/expenses/`
-                // );
                 console.log(expensesResult);
                 setExpenses(expensesResult.data.result);
                 setAreExpensesFetched(true);

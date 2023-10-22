@@ -30,7 +30,13 @@ export default function ExpenseAddForm(props) {
                 case 'update':
                     await axios.put(
                         `${process.env.REACT_APP_API_URI}/expenses/${itemSelected}`, // PIN : au lieu de itemSelected => completeItem._id ?
-                        newExpense
+                        newExpense,
+                        {
+                            headers: {
+                                'ngrok-skip-browser-warning':
+                                    'anyValue',
+                            },
+                        }
                     );
 
                     setItems([]);
@@ -40,7 +46,13 @@ export default function ExpenseAddForm(props) {
                 default:
                     await axios.post(
                         `${process.env.REACT_APP_API_URI}/expenses`,
-                        newExpense
+                        newExpense,
+                        {
+                            headers: {
+                                'ngrok-skip-browser-warning':
+                                    'anyValue',
+                            },
+                        }
                     );
                     setIsAddFormVisible(false);
                     break;
@@ -56,7 +68,12 @@ export default function ExpenseAddForm(props) {
         const getCategories = async () => {
             try {
                 let categoriesResult = await axios.get(
-                    `${process.env.REACT_APP_API_URI}/categories`
+                    `${process.env.REACT_APP_API_URI}/categories`,
+                    {
+                        headers: {
+                            'ngrok-skip-browser-warning': 'anyValue',
+                        },
+                    }
                 );
                 setCategories(categoriesResult.data.result);
                 setAreCategoriesFetched(true);

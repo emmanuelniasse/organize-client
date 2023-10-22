@@ -18,7 +18,13 @@ export default function ItemDeleteConfirmation(props) {
             await Promise.all(
                 items.map(async (itemId) => {
                     await axios.delete(
-                        `${process.env.REACT_APP_API_URI}/expenses/${itemId}`
+                        `${process.env.REACT_APP_API_URI}/expenses/${itemId}`,
+                        {
+                            headers: {
+                                'ngrok-skip-browser-warning':
+                                    'anyValue',
+                            },
+                        }
                     );
                     setAreExpensesFetched(false);
                 })
