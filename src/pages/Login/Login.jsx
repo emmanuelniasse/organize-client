@@ -2,11 +2,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+
 export default function Login() {
     const { register, handleSubmit } = useForm();
+    const [cookies, setCookie] = useCookies('');
 
     const onSubmit = async (userPayload) => {
-        console.log(userPayload);
         try {
             const loginStatus = await axios.post(
                 `${process.env.REACT_APP_API_URI}/login`,
@@ -17,8 +19,10 @@ export default function Login() {
                     },
                 }
             );
-            loginStatus.request.status === 200 &&
+            setCookie('token', loginStatus.data.token);
+            if (loginStatus.request.status === 200) {
                 window.location.replace('/');
+            }
         } catch (err) {
             console.log(err);
         }

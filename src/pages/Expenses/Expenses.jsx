@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { useCookies } from 'react-cookie';
 // Components
 import Expense from '../../Components/Expense/ExpenseItem/Expense';
 import AddForm from '../../Components/Expense/ExpenseAddForm/ExpenseAddForm';
@@ -19,21 +19,26 @@ export default function Expenses() {
     const [areExpensesFetched, setAreExpensesFetched] =
         useState(false);
     const [completeItem, setCompleteItem] = useState([]);
-    console.log(`${process.env.REACT_APP_API_URI}/expenses/`);
+    const [cookies, setCookie] = useCookies('token');
 
     // Récupère les dépenses de la DB
     useEffect(() => {
         const getExpenses = async () => {
+            console.log(cookies);
             try {
                 const expensesResult = await axios.get(
                     `${process.env.REACT_APP_API_URI}/expenses/`,
                     {
+                        method: 'GET',
+                        credentials: 'include',
                         headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
                             'ngrok-skip-browser-warning': 'anyVal',
+                            Authorization: `Bearer ${cookies.token}`,
                         },
                     }
                 );
-                console.log(expensesResult);
                 setExpenses(expensesResult.data.result);
                 setAreExpensesFetched(true);
             } catch (err) {
@@ -137,7 +142,7 @@ export default function Expenses() {
                             >
                                 Supprimer
                             </div>
-                            {items.length == 1 && (
+                            {items.length === 1 && (
                                 <div
                                     className='btn-update btn'
                                     onClick={handleUpdate}

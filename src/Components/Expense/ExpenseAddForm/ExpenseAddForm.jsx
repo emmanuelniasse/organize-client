@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 
 export default function ExpenseAddForm(props) {
     const {
@@ -23,8 +24,10 @@ export default function ExpenseAddForm(props) {
     const [categories, setCategories] = useState('');
     const [areCategoriesFetched, setAreCategoriesFetched] =
         useState(false);
+    const [cookies, setCookie] = useCookies('');
 
     const onSubmit = async (newExpense) => {
+        console.log(cookies);
         try {
             switch (action) {
                 case 'update':
@@ -32,9 +35,14 @@ export default function ExpenseAddForm(props) {
                         `${process.env.REACT_APP_API_URI}/expenses/${itemSelected}`, // PIN : au lieu de itemSelected => completeItem._id ?
                         newExpense,
                         {
+                            method: 'PUT',
+                            credentials: 'include',
                             headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json',
                                 'ngrok-skip-browser-warning':
                                     'anyVal',
+                                Authorization: `Bearer ${cookies.token}`,
                             },
                         }
                     );
@@ -48,9 +56,14 @@ export default function ExpenseAddForm(props) {
                         `${process.env.REACT_APP_API_URI}/expenses`,
                         newExpense,
                         {
+                            method: 'POST',
+                            credentials: 'include',
                             headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json',
                                 'ngrok-skip-browser-warning':
                                     'anyVal',
+                                Authorization: `Bearer ${cookies.token}`,
                             },
                         }
                     );
@@ -70,8 +83,13 @@ export default function ExpenseAddForm(props) {
                 let categoriesResult = await axios.get(
                     `${process.env.REACT_APP_API_URI}/categories`,
                     {
+                        method: 'GET',
+                        credentials: 'include',
                         headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
                             'ngrok-skip-browser-warning': 'anyVal',
+                            Authorization: `Bearer ${cookies.token}`,
                         },
                     }
                 );
