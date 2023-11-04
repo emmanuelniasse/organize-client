@@ -17,8 +17,7 @@ const AuthGuard = () => {
         if (cookies.token) {
             setIsAuthenticated(true);
         } else {
-            // navigate('/connexion');
-            console.log('Non connecté');
+            navigate('/connexion');
         }
     }, [cookies, navigate]);
 
