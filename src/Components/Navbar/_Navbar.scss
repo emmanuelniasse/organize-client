@@ -8,8 +8,7 @@
     color: $primary;
     padding: 0.6rem 0;
     &__nav {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        display: flex;
         justify-content: space-between;
         align-items: center;
 

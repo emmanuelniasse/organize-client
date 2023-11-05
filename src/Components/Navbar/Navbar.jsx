@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../../img/logos/logo.png';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { useAuth } from '../../Contexts/AuthContext.jsx';
+
+import logo from '../../img/logos/logo.png';
 
 export default function Navbar() {
     const [cookies, setCookie, removeCookie] = useCookies('token');
+    const { isLoggedIn, setIsLoggedIn } = useAuth();
 
     const logout = async () => {
         try {
@@ -24,7 +27,6 @@ export default function Navbar() {
         } catch (err) {
             console.log(err);
         }
-        console.log(cookies);
     };
 
     return (
@@ -36,12 +38,18 @@ export default function Navbar() {
                             <img src={logo} alt='logo' />
                         </Link>
                     </div>
-                </div>
-                <div
-                    className='logout btn btn-cancel'
-                    onClick={logout}
-                >
-                    Déconnexion
+                    {isLoggedIn && (
+                        <div className='navbar__links'>
+                            <ul>
+                                <li
+                                    className='btn btn-cancel'
+                                    onClick={logout}
+                                >
+                                    Déconnexion
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </nav>
         </>

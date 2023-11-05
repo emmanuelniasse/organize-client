@@ -24,7 +24,6 @@ export default function Expenses() {
     // Récupère les dépenses de la DB
     useEffect(() => {
         const getExpenses = async () => {
-            console.log(cookies);
             try {
                 const expensesResult = await axios.get(
                     `${process.env.REACT_APP_API_URI}/expenses/`,

@@ -27,7 +27,6 @@ export default function ExpenseAddForm(props) {
     const [cookies, setCookie] = useCookies('');
 
     const onSubmit = async (newExpense) => {
-        console.log(cookies);
         try {
             switch (action) {
                 case 'update':
