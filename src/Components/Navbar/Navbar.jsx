@@ -18,7 +18,6 @@ export default function Navbar() {
                 }
             );
             removeCookie('token');
-            console.log(logOut.request.tatus);
             if (logOut.request.status === 200) {
                 window.location.replace('/connexion');
             }

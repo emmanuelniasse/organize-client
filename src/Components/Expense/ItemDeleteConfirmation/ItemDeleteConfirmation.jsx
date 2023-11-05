@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 export default function ItemDeleteConfirmation(props) {
     const {
@@ -11,6 +12,9 @@ export default function ItemDeleteConfirmation(props) {
         items,
     } = props;
 
+    // STATES
+    const [cookies, setCookie] = useCookies('');
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -20,9 +24,14 @@ export default function ItemDeleteConfirmation(props) {
                     await axios.delete(
                         `${process.env.REACT_APP_API_URI}/expenses/${itemId}`,
                         {
+                            method: 'DELETE',
+                            credentials: 'include',
                             headers: {
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json',
                                 'ngrok-skip-browser-warning':
                                     'anyVal',
+                                Authorization: `Bearer ${cookies.token}`,
                             },
                         }
                     );
