@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import FlashMessage from '../../Components/FlashMessage/FlashMessage';
 
+import img2 from '../../img/img2.jpg';
+
 export default function Signup() {
     const { register, handleSubmit } = useForm();
     const [notification, setNotification] = useState(false);
@@ -42,33 +44,57 @@ export default function Signup() {
     };
 
     return (
-        <>
-            <form onSubmit={handleSubmit(onSubmit)} className='form'>
-                <h2>Inscription</h2>
-                <p className='flash-message'>
-                    Déjà inscrit ?
-                    <br />
-                    <Link to='/connexion' className='bold underline'>
-                        Connectez-vous
-                    </Link>
-                </p>
-                <input
-                    autoComplete='off'
-                    {...register('pseudo')}
-                    placeholder={'Pseudo'}
-                />
-                <input
-                    autoComplete='off'
-                    {...register('password')}
-                    placeholder={'Mot de passe'}
-                    type='password'
-                />
-                <input
-                    type='submit'
-                    className={'btn btn-add'}
-                    value={"S'inscrire"}
-                />
-            </form>
+        <div className='page-container align-items-center'>
+            <div className='flex'>
+                <div className='w49'>
+                    <img src={img2} className='w85' />
+                </div>
+
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className='form w49'
+                >
+                    <h2>Inscription</h2>
+                    <hr className='my-1' />
+
+                    <p className='flash-message'>
+                        Déjà inscrit ?
+                        <br />
+                        <Link
+                            to='/connexion'
+                            className='bold underline'
+                        >
+                            Connectez-vous
+                        </Link>
+                    </p>
+                    <div className='form__inputs-group column'>
+                        <label htmlFor='pseudo'>Pseudo :</label>
+                        <input
+                            autoComplete='off'
+                            {...register('pseudo')}
+                            placeholder={'Entrez votre pseudo'}
+                            name='pseudo'
+                        />
+                        <label htmlFor='password'>
+                            Mot de passe :
+                        </label>
+
+                        <input
+                            autoComplete='off'
+                            {...register('password')}
+                            placeholder={'Entrez mot de passe'}
+                            type='password'
+                            name='password'
+                        />
+                        <input
+                            type='submit'
+                            className={'btn btn-add'}
+                            value={"S'inscrire"}
+                        />
+                    </div>
+                </form>
+            </div>
+
             {notification && (
                 <FlashMessage
                     message={
@@ -77,6 +103,6 @@ export default function Signup() {
                     displayTime={displayTime.current * 1000}
                 />
             )}
-        </>
+        </div>
     );
 }

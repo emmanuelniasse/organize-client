@@ -28,6 +28,41 @@ ul li {
     list-style-type: none;
 }
 
+.w100 {
+    width: 100%;
+}
+
+.w85 {
+    width: 85%;
+}
+
+.w49 {
+    width: 49%;
+}
+
+.bg-salmon {
+    background-color: lightblue;
+}
+
+.my-1 {
+    margin: 1.5rem 0;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.align-items-center {
+    display: flex;
+    align-items: center;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
 .bold {
     font-weight: bold;
 }
@@ -40,6 +75,7 @@ ul li {
     margin: 0 auto;
     width: 80vw;
     max-width: 1300px;
+    height: 100%;
     @media (max-width: 500px) {
         width: 96vw;
     }

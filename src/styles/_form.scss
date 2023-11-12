@@ -1,16 +1,13 @@
 .form {
     z-index: 2;
-    padding: 1.5rem;
-    width: 400px;
+    padding: 2rem 3rem;
+    width: 500px;
+    height: 50%;
 
     @media (max-width: 480px) {
         width: 95vw;
+        padding: 1.5rem;
     }
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
     display: flex;
     flex-direction: column;
@@ -20,12 +17,19 @@
     background-color: white;
     box-shadow: $shadow1;
 
-    > *:not(:last-child) {
-        margin-bottom: 1rem;
-    }
-
     &__buttons {
         display: flex;
         justify-content: space-between;
+    }
+
+    &__inputs-group {
+        margin-top: 1.5rem;
+        > input:not(:last-of-type) {
+            margin-bottom: 1.5rem;
+        }
+
+        > label {
+            margin-bottom: 0.5rem;
+        }
     }
 }
