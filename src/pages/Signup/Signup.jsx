@@ -43,8 +43,15 @@ export default function Signup() {
 
     return (
         <>
-            <h1>Signup</h1>
             <form onSubmit={handleSubmit(onSubmit)} className='form'>
+                <h2>Inscription</h2>
+                <p className='flash-message'>
+                    Déjà inscrit ?
+                    <br />
+                    <Link to='/connexion' className='bold underline'>
+                        Connectez-vous
+                    </Link>
+                </p>
                 <input
                     autoComplete='off'
                     {...register('pseudo')}
@@ -70,9 +77,6 @@ export default function Signup() {
                     displayTime={displayTime.current * 1000}
                 />
             )}
-            <Link to='/connexion' className='btn btn-add'>
-                Se connecter
-            </Link>
         </>
     );
 }

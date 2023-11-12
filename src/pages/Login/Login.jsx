@@ -29,8 +29,19 @@ export default function Login() {
     };
     return (
         <>
-            <h1>Login</h1>
             <form onSubmit={handleSubmit(onSubmit)} className='form'>
+                <h2>Connexion</h2>
+
+                <p className='flash-message'>
+                    Vous n'avez pas encore de compte ?
+                    <br />
+                    <Link
+                        to='/inscription'
+                        className='bold underline'
+                    >
+                        Créer-le maintenant
+                    </Link>
+                </p>
                 <input
                     autoComplete='off'
                     {...register('pseudo')}
@@ -45,12 +56,9 @@ export default function Login() {
                 <input
                     type='submit'
                     className={'btn btn-add'}
-                    value={'Connexion'}
+                    value={'Se connecter'}
                 />
             </form>
-            <Link to='/inscription' className='btn btn-add'>
-                S'inscrire
-            </Link>
         </>
     );
 }

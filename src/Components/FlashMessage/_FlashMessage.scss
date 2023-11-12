@@ -2,9 +2,11 @@
 @import '../../styles/variables';
 
 .flash-message {
+    margin: 0 0 1rem;
     box-shadow: 0 0 7px 3px gray;
     font-family: 'Roboto';
     color: #f1f1f1;
     background-color: $secondary;
-    padding: 0.3rem 0.6rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.3rem;
 }

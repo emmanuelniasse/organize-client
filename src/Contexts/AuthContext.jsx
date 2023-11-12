@@ -26,7 +26,6 @@ export function AuthProvider(props) {
         }
     }, [cookies]);
 
-    console.log('isLoggedIn : ' + isLoggedIn);
     return (
         <AuthContext.Provider value={userInformations}>
             {props.children}
