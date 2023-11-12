@@ -25,8 +25,8 @@ export default function Signup() {
                 // Notif
                 setNotification(true);
 
-                // Redirection après 5s
-                displayTime.current = 5;
+                // Redirection après 3s
+                displayTime.current = 3;
                 setTimeout(() => {
                     window.location.replace('/connexion');
                     console.log(
