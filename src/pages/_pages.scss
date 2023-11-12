@@ -34,4 +34,13 @@
 }
 .page-container {
     height: 100%;
+    @media (max-width: 1100px) {
+        justify-content: center;
+        &__image {
+            display: none;
+        }
+        .w49 {
+            width: 100%;
+        }
+    }
 }

@@ -31,14 +31,14 @@ export default function Login() {
     };
     return (
         <div className='page-container align-items-center'>
-            <div className='flex'>
-                <div className='w49'>
+            <div className='flex align-items-center'>
+                <div className='page-container__image w49'>
                     <img src={img1} className='w85' />
                 </div>
 
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className='form w49'
+                    className='form'
                 >
                     <h2>Connexion</h2>
                     <hr className='my-1' />
