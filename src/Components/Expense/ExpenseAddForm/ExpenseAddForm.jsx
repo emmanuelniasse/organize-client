@@ -105,78 +105,90 @@ export default function ExpenseAddForm(props) {
 
     return (
         <>
-            <form onSubmit={handleSubmit(onSubmit)} className='form'>
-                <input
-                    autoComplete='off'
-                    {...register('name')}
-                    placeholder={'Libellé'}
-                    defaultValue={
-                        completeItem ? completeItem.name : ''
-                    }
-                />
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className='form add-form'
+            >
+                <div className='add-form__inputs-group'>
+                    <input
+                        autoComplete='off'
+                        {...register('name')}
+                        placeholder={'Libellé'}
+                        defaultValue={
+                            completeItem ? completeItem.name : ''
+                        }
+                    />
 
-                <select
-                    {...register('category')}
-                    defaultValue={selectedOption}
-                    onChange={(e) =>
-                        setSelectedOption(e.target.value)
-                    }
-                >
-                    <option
-                        value={
-                            completeItem && completeItem.category._id
+                    <select
+                        {...register('category')}
+                        defaultValue={selectedOption}
+                        onChange={(e) =>
+                            setSelectedOption(e.target.value)
                         }
                     >
-                        {completeItem
-                            ? completeItem.category.name
-                            : '--- Catégorie de la dépense ---'}
-                    </option>
-                    {categories &&
-                        categories.map((category) => (
-                            <option
-                                value={category._id}
-                                key={category._id}
-                            >
-                                {category.name}
-                            </option>
-                        ))}
-                </select>
+                        <option
+                            value={
+                                completeItem &&
+                                completeItem.category._id
+                            }
+                        >
+                            {completeItem
+                                ? completeItem.category.name
+                                : '--- Catégorie de la dépense ---'}
+                        </option>
+                        {categories &&
+                            categories.map((category) => (
+                                <option
+                                    value={category._id}
+                                    key={category._id}
+                                >
+                                    {category.name}
+                                </option>
+                            ))}
+                    </select>
 
-                <input
-                    autoComplete='off'
-                    type='number'
-                    {...register('sum')}
-                    placeholder={'Somme'}
-                    defaultValue={
-                        completeItem ? completeItem.sum : ''
-                    }
-                />
-                <textarea
-                    autoComplete='off'
-                    {...register('description')}
-                    rows='5'
-                    cols='33'
-                    placeholder={'Description'}
-                    defaultValue={
-                        completeItem ? completeItem.description : ''
-                    }
-                />
-                <input type='hidden' value={action} />
-                <div className='btn-group'>
                     <input
-                        type='submit'
-                        className={
-                            'btn ' +
-                            (completeItem ? 'btn-update' : 'btn-add')
+                        autoComplete='off'
+                        type='number'
+                        {...register('sum')}
+                        placeholder={'Somme'}
+                        defaultValue={
+                            completeItem ? completeItem.sum : ''
                         }
-                        value={completeItem ? 'Modifier' : 'Ajouter'}
                     />
-                    <input
-                        className='btn btn-cancel'
-                        type='button'
-                        onClick={handleCancel}
-                        value='Annuler'
+                    <textarea
+                        autoComplete='off'
+                        {...register('description')}
+                        rows='5'
+                        cols='33'
+                        placeholder={'Description'}
+                        defaultValue={
+                            completeItem
+                                ? completeItem.description
+                                : ''
+                        }
                     />
+                    <input type='hidden' value={action} />
+                    <div className='btn-group'>
+                        <input
+                            type='submit'
+                            className={
+                                'btn ' +
+                                (completeItem
+                                    ? 'btn-update'
+                                    : 'btn-add')
+                            }
+                            value={
+                                completeItem ? 'Modifier' : 'Ajouter'
+                            }
+                        />
+                        <input
+                            className='btn btn-cancel'
+                            type='button'
+                            onClick={handleCancel}
+                            value='Annuler'
+                        />
+                    </div>
                 </div>
             </form>
         </>

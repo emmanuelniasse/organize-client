@@ -33,3 +33,23 @@
         }
     }
 }
+
+.add-form,
+.update-form {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    &__inputs-group {
+        margin-top: 0;
+        > input:not(:last-of-type),
+        select,
+        textarea {
+            margin-bottom: 1rem;
+        }
+
+        > label {
+            margin-bottom: 0.5rem;
+        }
+    }
+}
