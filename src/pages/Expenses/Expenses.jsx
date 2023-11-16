@@ -130,14 +130,14 @@ export default function Expenses() {
                     CRUD BUTTONS À TRANSFORMER EN COMPOSANT
                 */}
                 <div className='expenses__buttons'>
-                    {!isAddFormVisible && !isItemSelected && (
-                        <div
-                            className='btn btn-add--plus'
-                            onClick={handleAdd}
-                        >
-                            +
-                        </div>
-                    )}
+                    {/* {!isAddFormVisible && !isItemSelected && ( */}
+                    <div
+                        className='btn btn-add--plus'
+                        onClick={handleAdd}
+                    >
+                        +
+                    </div>
+                    {/* )} */}
                     {isItemSelected && (
                         <>
                             <div
