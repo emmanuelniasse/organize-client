@@ -8,6 +8,11 @@
     &__buttons {
         color: #f1f1f1;
         display: flex;
+        position: sticky;
+        padding: 0.5rem 0;
+        top: 0px;
+        background-color: #ffffff;
+        z-index: 2;
     }
 
     &__form-container,

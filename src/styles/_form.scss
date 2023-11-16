@@ -2,7 +2,6 @@
     z-index: 2;
     padding: 2rem 3rem;
     width: 500px;
-    height: 50%;
 
     @media (max-width: 480px) {
         width: 95vw;
@@ -35,13 +34,17 @@
 }
 
 .add-form,
-.update-form {
+.update-form,
+.delete-form {
     position: absolute;
     top: 0%;
     left: 50%;
     transform: translate(-50%, 50%);
     &__inputs-group {
         margin-top: 0;
+        > * {
+            width: 100%;
+        }
         > input:not(:last-of-type),
         select,
         textarea {

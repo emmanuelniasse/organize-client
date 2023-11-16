@@ -48,7 +48,10 @@ export default function ItemDeleteConfirmation(props) {
     };
     return (
         <>
-            <form onSubmit={handleSubmit} className='form'>
+            <form
+                onSubmit={handleSubmit}
+                className='form delete-form'
+            >
                 <div className='form__buttons'>
                     <div
                         className='btn-cancel btn'
