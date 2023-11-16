@@ -6,6 +6,11 @@ import Expense from '../../Components/Expense/ExpenseItem/Expense';
 import AddForm from '../../Components/Expense/ExpenseAddForm/ExpenseAddForm';
 import DeleteConfirmation from '../../Components/Expense/ItemDeleteConfirmation/ItemDeleteConfirmation';
 
+// Icons
+import deleteIcon from '../../img/icons/deleteIcon.svg';
+import editIcon from '../../img/icons/editIcon.svg';
+import uncheckIcon from '../../img/icons/uncheckIcon.svg';
+
 export default function Expenses() {
     // States
     const [expenses, setExpenses] = useState([]);
@@ -139,14 +144,22 @@ export default function Expenses() {
                                 className='btn-delete btn'
                                 onClick={handleDelete}
                             >
-                                Supprimer
+                                <img
+                                    src={deleteIcon}
+                                    alt='delete-icon'
+                                    className='btn-icon'
+                                />
                             </div>
                             {items.length === 1 && (
                                 <div
                                     className='btn-update btn'
                                     onClick={handleUpdate}
                                 >
-                                    Modifier
+                                    <img
+                                        src={editIcon}
+                                        alt='update-icon'
+                                        className='btn-icon'
+                                    />
                                 </div>
                             )}
 
@@ -155,7 +168,11 @@ export default function Expenses() {
                                     className='btn-cancel btn'
                                     onClick={handleCancelSelection}
                                 >
-                                    Tout désélectionner
+                                    <img
+                                        src={uncheckIcon}
+                                        alt='update-icon'
+                                        className='btn-icon'
+                                    />
                                 </div>
                             )}
                         </>

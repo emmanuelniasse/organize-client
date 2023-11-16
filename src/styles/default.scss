@@ -137,6 +137,11 @@ ul li {
     &-cancel {
         background-color: $primary;
     }
+
+    &-icon {
+        width: 1.3rem;
+        height: 1.3rem;
+    }
 }
 
 .title-page {
