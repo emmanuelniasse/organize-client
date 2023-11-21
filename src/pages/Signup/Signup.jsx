@@ -17,7 +17,10 @@ export default function Signup() {
                 `${process.env.REACT_APP_API_URI}/signup`,
                 userPayload,
                 {
-                    headers: {},
+                    headers: {
+                        'Content-Type': 'application/json', // Ajoutez le type de contenu
+                    },
+                    withCredentials: true, // Permet l'envoi de cookies
                 }
             );
 

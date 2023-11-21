@@ -16,7 +16,10 @@ export default function Login() {
                 `${process.env.REACT_APP_API_URI}/login`,
                 userPayload,
                 {
-                    headers: {},
+                    headers: {
+                        'Content-Type': 'application/json', // Ajoutez le type de contenu
+                    },
+                    withCredentials: true, // Permet l'envoi de cookies
                 }
             );
             setCookie('token', loginStatus.data.token);
