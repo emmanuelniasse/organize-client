@@ -15,9 +15,7 @@ export default function Navbar() {
             const logOut = await axios.post(
                 `${process.env.REACT_APP_API_URI}/logout`,
                 {
-                    headers: {
-                        'ngrok-skip-browser-warning': 'anyVal',
-                    },
+                    headers: {},
                 }
             );
             removeCookie('token');

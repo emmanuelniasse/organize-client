@@ -38,7 +38,6 @@ export default function Expenses() {
                         headers: {
                             Accept: 'application/json',
                             'Content-Type': 'application/json',
-                            'ngrok-skip-browser-warning': 'anyVal',
                             Authorization: `Bearer ${cookies.token}`,
                         },
                     }

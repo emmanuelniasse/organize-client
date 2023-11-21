@@ -17,9 +17,7 @@ export default function Signup() {
                 `${process.env.REACT_APP_API_URI}/signup`,
                 userPayload,
                 {
-                    headers: {
-                        'ngrok-skip-browser-warning': 'anyVal',
-                    },
+                    headers: {},
                 }
             );
 

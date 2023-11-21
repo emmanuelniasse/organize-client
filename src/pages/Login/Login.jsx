@@ -16,9 +16,7 @@ export default function Login() {
                 `${process.env.REACT_APP_API_URI}/login`,
                 userPayload,
                 {
-                    headers: {
-                        'ngrok-skip-browser-warning': 'anyVal',
-                    },
+                    headers: {},
                 }
             );
             setCookie('token', loginStatus.data.token);
