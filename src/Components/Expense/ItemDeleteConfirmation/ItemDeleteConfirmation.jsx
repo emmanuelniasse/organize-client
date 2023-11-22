@@ -25,7 +25,7 @@ export default function ItemDeleteConfirmation(props) {
                         `${process.env.REACT_APP_API_URI}/expenses/${itemId}`,
                         {
                             method: 'DELETE',
-                            credentials: 'include',
+                            // credentials: 'include',
                             headers: {
                                 Accept: 'application/json',
                                 'Content-Type': 'application/json',

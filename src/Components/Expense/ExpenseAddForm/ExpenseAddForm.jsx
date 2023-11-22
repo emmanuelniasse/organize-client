@@ -35,7 +35,7 @@ export default function ExpenseAddForm(props) {
                         newExpense,
                         {
                             method: 'PUT',
-                            credentials: 'include',
+                            // // credentials: 'include',
                             headers: {
                                 Accept: 'application/json',
                                 'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export default function ExpenseAddForm(props) {
                         newExpense,
                         {
                             method: 'POST',
-                            credentials: 'include',
+                            // // credentials: 'include',
                             headers: {
                                 Accept: 'application/json',
                                 'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export default function ExpenseAddForm(props) {
                     `${process.env.REACT_APP_API_URI}/categories`,
                     {
                         method: 'GET',
-                        credentials: 'include',
+                        // // credentials: 'include',
                         headers: {
                             Accept: 'application/json',
                             'Content-Type': 'application/json',

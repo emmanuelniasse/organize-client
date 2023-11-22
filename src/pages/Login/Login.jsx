@@ -19,7 +19,7 @@ export default function Login() {
                     headers: {
                         'Content-Type': 'application/json', // Ajoutez le type de contenu
                     },
-                    withCredentials: true, // Permet l'envoi de cookies
+                    // withCredentials: true, // Permet l'envoi de cookies
                 }
             );
             setCookie('token', loginStatus.data.token);

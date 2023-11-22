@@ -20,7 +20,7 @@ export default function Signup() {
                     headers: {
                         'Content-Type': 'application/json', // Ajoutez le type de contenu
                     },
-                    withCredentials: true, // Permet l'envoi de cookies
+                    // withCredentials: true, // Permet l'envoi de cookies
                 }
             );
 
