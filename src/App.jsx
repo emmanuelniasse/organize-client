@@ -16,7 +16,7 @@ export default function App() {
             {isLoggedIn ? (
                 <>
                     <Route path='/' element={<Expenses />} />
-                    <Route path='*' element={<Expenses />} />
+                    {/* <Route path='*' element={<Expenses />} /> */}
                 </>
             ) : (
                 <>
@@ -34,7 +34,7 @@ export default function App() {
                     <Route path='*' element={<Expenses />} />
                 </>
             )}
-            {/* PIN : Voir si la redirection est assez correcte ou pas  assez safe */}
+            {/* PIN : Voir si la redirection est assez correcte ou pas assez safe */}
         </Routes>
     );
 }
