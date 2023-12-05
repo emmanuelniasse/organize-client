@@ -11,6 +11,8 @@ export default function Login() {
     const [cookies, setCookie] = useCookies('');
 
     const onSubmit = async (userPayload) => {
+        console.log(userPayload);
+
         try {
             const loginStatus = await axios.post(
                 `${process.env.REACT_APP_API_URI}/login`,
@@ -23,7 +25,6 @@ export default function Login() {
                 }
             );
             console.log(loginStatus.data);
-            console.log(userPayload);
             setCookie('token', loginStatus.data.token);
             if (loginStatus.request.status === 200) {
                 window.location.replace('/');
