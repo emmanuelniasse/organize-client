@@ -16,7 +16,6 @@ export default function App() {
             {isLoggedIn ? (
                 <>
                     <Route path='/' element={<Expenses />} />
-                    <Route path='*' element={<Expenses />} />
                 </>
             ) : (
                 <>
