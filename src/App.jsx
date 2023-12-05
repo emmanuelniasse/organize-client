@@ -19,7 +19,7 @@ export default function App() {
                 </>
             ) : (
                 <>
-                    <Route path='/' element={<Login />} />
+                    <Route path='/' element={<Expenses />} />
                     <Route
                         exact
                         path='/connexion'
