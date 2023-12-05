@@ -19,11 +19,13 @@ export function AuthProvider(props) {
     };
 
     useEffect(() => {
-        if (cookies.token) {
-            setIsLoggedIn(true);
-        } else {
-            navigate('/connexion');
-        }
+        console.log(cookies.token);
+        // PIN
+        // if (cookies.token) {
+        //     setIsLoggedIn(true);
+        // } else {
+        //     navigate('/connexion');
+        // }
     }, [cookies]);
 
     return (
