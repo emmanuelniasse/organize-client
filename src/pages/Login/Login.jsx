@@ -22,12 +22,14 @@ export default function Login() {
                     // withCredentials: true, // Permet l'envoi de cookies
                 }
             );
+            console.log(loginStatus.data);
+            console.log(userPayload);
             setCookie('token', loginStatus.data.token);
             if (loginStatus.request.status === 200) {
                 window.location.replace('/');
             }
         } catch (err) {
-            console.log(err);
+            console.log("ERREUR" + err);
         }
     };
     return (
