@@ -16,11 +16,11 @@ export default function App() {
             {isLoggedIn ? (
                 <>
                     <Route path='/' element={<Expenses />} />
-                    {/* <Route path='*' element={<Expenses />} /> */}
+                    <Route path='*' element={<Expenses />} />
                 </>
             ) : (
                 <>
-                    <Route path='/' element={<Login />} />
+                    <Route path='/' element={<Expenses />} />
                     <Route
                         exact
                         path='/connexion'
