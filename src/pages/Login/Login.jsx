@@ -14,21 +14,23 @@ export default function Login() {
         console.log(userPayload);
 
         try {
-            const loginStatus = await axios.post(
-                `${process.env.REACT_APP_API_URI}/login`,
-                userPayload,
-                {
-                    headers: {
-                        'Content-Type': 'application/json', // Ajoutez le type de contenu
-                    },
-                    // withCredentials: true, // Permet l'envoi de cookies
-                }
-            );
-            console.log(loginStatus.data);
-            setCookie('token', loginStatus.data.token);
-            if (loginStatus.request.status === 200) {
-                window.location.replace('/');
-            }
+            console.log('avant loginStatus');
+
+            // const loginStatus = await axios.post(
+            //     `${process.env.REACT_APP_API_URI}/login`,
+            //     userPayload,
+            //     {
+            //         headers: {
+            //             'Content-Type': 'application/json', // Ajoutez le type de contenu
+            //         },
+            //         // withCredentials: true, // Permet l'envoi de cookies
+            //     }
+            // );
+            console.log("Apres login status");
+            // setCookie('token', loginStatus.data.token);
+            // if (loginStatus.request.status === 200) {
+            //     window.location.replace('/');
+            // }
         } catch (err) {
             console.log("ERREUR" + err);
         }
