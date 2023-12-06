@@ -12,20 +12,21 @@ export default function Login() {
 
     const onSubmit = async (userPayload) => {
         console.log(userPayload);
+        console.log('api : ' + process.env.REACT_APP_API_URI);
 
         try {
             console.log('avant loginStatus');
 
-            // const loginStatus = await axios.post(
-            //     `${process.env.REACT_APP_API_URI}/login`,
-            //     userPayload,
-            //     {
-            //         headers: {
-            //             'Content-Type': 'application/json', // Ajoutez le type de contenu
-            //         },
-            //         // withCredentials: true, // Permet l'envoi de cookies
-            //     }
-            // );
+            const loginStatus = await axios.post(
+                `${process.env.REACT_APP_API_URI}/login`,
+                userPayload,
+                {
+                    headers: {
+                        'Content-Type': 'application/json', // Ajoutez le type de contenu
+                    },
+                    withCredentials: true, // Permet l'envoi de cookies
+                }
+            );
             console.log("Apres login status");
             // setCookie('token', loginStatus.data.token);
             // if (loginStatus.request.status === 200) {
