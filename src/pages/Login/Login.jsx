@@ -22,7 +22,7 @@ export default function Login() {
                 userPayload,
                 {
                     headers: {
-                        'Content-Type': 'application/json', // Ajoutez le type de contenu
+                        'Content-Type': 'application/json', 
                     },
                     withCredentials: true, // Permet l'envoi de cookies
                 }
