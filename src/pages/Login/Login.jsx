@@ -21,6 +21,7 @@ export default function Login() {
                 `${process.env.REACT_APP_API_URI}/login`,
                 userPayload,
                 {
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json', 
                     },
