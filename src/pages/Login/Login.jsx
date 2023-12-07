@@ -29,10 +29,10 @@ export default function Login() {
                 }
             );
             console.log("Apres login status");
-            // setCookie('token', loginStatus.data.token);
-            // if (loginStatus.request.status === 200) {
-            //     window.location.replace('/');
-            // }
+            setCookie('token', loginStatus.data.token);
+            if (loginStatus.request.status === 200) {
+                window.location.replace('/');
+            }
         } catch (err) {
             console.log("ERREUR" + err);
         }
