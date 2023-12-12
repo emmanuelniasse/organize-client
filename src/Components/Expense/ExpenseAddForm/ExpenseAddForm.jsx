@@ -87,7 +87,7 @@ export default function ExpenseAddForm(props) {
                         headers: {
                             Accept: 'application/json',
                             'Content-Type': 'application/json',
-                            'ngrok-skip-browser-warning': 'anyVal',
+                            // 'ngrok-skip-browser-warning': 'anyVal',
                             Authorization: `Bearer ${cookies.token}`,
                         },
                     }
