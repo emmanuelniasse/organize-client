@@ -16,7 +16,7 @@ export default function Login() {
 
         try {
             console.log('avant loginStatus');
-            console.log('AVANT loginStatus : ' + userPayload);
+            console.log(userPayload);
             const loginStatus = await axios.post(
                 `${process.env.REACT_APP_API_URI}/login`,
                 userPayload,
