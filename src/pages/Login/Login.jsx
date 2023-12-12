@@ -16,12 +16,11 @@ export default function Login() {
 
         try {
             console.log('avant loginStatus');
-
+            console.log('AVANT loginStatus : ' + userPayload);
             const loginStatus = await axios.post(
                 `${process.env.REACT_APP_API_URI}/login`,
                 userPayload,
                 {
-                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json', 
                     },
