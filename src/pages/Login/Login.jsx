@@ -25,7 +25,7 @@ export default function Login() {
                     headers: {
                         'Content-Type': 'application/json', 
                     },
-                    withCredentials: true, // Permet l'envoi de cookies
+                    // withCredentials: true, // Permet l'envoi de cookies
                 }
             );
             console.log("Apres login status");
