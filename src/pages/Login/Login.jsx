@@ -31,9 +31,9 @@ export default function Login() {
             console.log("Apres login status");
             console.log("login status : " + loginStatus.request.status);
             setCookie('token', loginStatus.data.token);
-            // if (loginStatus.request.status === 200) {
-            //     window.location.replace('/');
-            // }
+            if (loginStatus.request.status === 200) {
+                window.location.replace('/');
+            }
         } catch (err) {
             console.log("ERREUR" + err);
         }
