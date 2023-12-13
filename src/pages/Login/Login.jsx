@@ -25,7 +25,9 @@ export default function Login() {
                     },
                     withCredentials: true, // Permet l'envoi de cookies
                 }
-            );
+            ).catch((err) => {
+                console.log(err);
+            });
             setCookie('token', loginStatus.data.token);
             console.log(loginStatus.data.token);
             // if (loginStatus.request.status === 200) {
