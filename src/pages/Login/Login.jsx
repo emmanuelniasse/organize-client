@@ -33,7 +33,6 @@ export default function Login() {
             setCookie('token', loginStatus.data.token);
             if (loginStatus.request.status === 200) {
                 window.location.replace('/');
-                console.log(location);
             }
         } catch (err) {
             console.log("ERREUR" + err);

@@ -18,15 +18,15 @@ export function AuthProvider(props) {
         setIsLoggedIn,
     };
 
-    useEffect(() => {
-        console.log(cookies.token);
-        // PIN
-        // if (cookies.token) {
-        //     setIsLoggedIn(true);
-        // } else {
-        //     navigate('/connexion');
-        // }
-    }, [cookies]);
+    // useEffect(() => {
+    //     console.log(cookies.token);
+    //     // PIN
+    //     // if (cookies.token) {
+    //     //     setIsLoggedIn(true);
+    //     // } else {
+    //     //     navigate('/connexion');
+    //     // }
+    // }, [cookies]);
 
     return (
         <AuthContext.Provider value={userInformations}>
