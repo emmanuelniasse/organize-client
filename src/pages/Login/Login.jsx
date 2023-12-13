@@ -25,14 +25,13 @@ export default function Login() {
                     },
                     withCredentials: true, // Permet l'envoi de cookies
                 }
-            ).catch((err) => {
-                console.log(err);
-            });
+            );
+
             setCookie('token', loginStatus.data.result.token);
-            console.log(loginStatus.data.result.token);
-            // if (loginStatus.request.status === 200) {
-            //     window.location.replace('/');
-            // }
+            
+            if (loginStatus.request.status === 200) {
+                window.location.replace('/');
+            }
         } catch (err) {
             console.log("ERREUR" + err);
         }
