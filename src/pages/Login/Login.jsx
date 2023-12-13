@@ -21,15 +21,15 @@ export default function Login() {
                 {
                     headers: {
                         Accept: 'application/json',
-                        'Content-Type': 'application/json', 
+                        'Content-Type': 'application/json',
                     },
-                    withCredentials: true, // Permet l'envoi de cookies
+                    // withCredentials: true, // Permet l'envoi de cookies
                 }
             ).catch((err) => {
                 console.log(err);
             });
             setCookie('token', loginStatus.data.token);
-            console.log(loginStatus.data.token);
+            console.log(loginStatus.data);
             // if (loginStatus.request.status === 200) {
             //     window.location.replace('/');
             // }
