@@ -23,7 +23,7 @@ export default function Login() {
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
                     },
-                    // withCredentials: true, // Permet l'envoi de cookies
+                    withCredentials: true, // Permet l'envoi de cookies
                 }
             ).catch((err) => {
                 console.log(err);
