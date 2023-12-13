@@ -28,8 +28,8 @@ export default function Login() {
             ).catch((err) => {
                 console.log(err);
             });
-            setCookie('token', loginStatus.data.token);
-            console.log(loginStatus.data);
+            setCookie('token', loginStatus.data.result.token);
+            console.log(loginStatus.data.result.token);
             // if (loginStatus.request.status === 200) {
             //     window.location.replace('/');
             // }
