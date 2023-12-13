@@ -15,8 +15,6 @@ export default function Login() {
         console.log('api : ' + process.env.REACT_APP_API_URI);
 
         try {
-            console.log('avant loginStatus');
-            console.log(userPayload);
             const loginStatus = await axios.post(
                 `${process.env.REACT_APP_API_URI}/login`,
                 userPayload,
@@ -28,12 +26,11 @@ export default function Login() {
                     withCredentials: true, // Permet l'envoi de cookies
                 }
             );
-            console.log("Apres login status");
-            console.log("login status : " + loginStatus.request.status);
             setCookie('token', loginStatus.data.token);
-            if (loginStatus.request.status === 200) {
-                window.location.replace('/');
-            }
+            console.log(loginStatus.data.token);
+            // if (loginStatus.request.status === 200) {
+            //     window.location.replace('/');
+            // }
         } catch (err) {
             console.log("ERREUR" + err);
         }
