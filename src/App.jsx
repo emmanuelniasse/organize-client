@@ -109,6 +109,10 @@ export default function App() {
                             element={<Signup />}
                         />
                         <Route
+                            index
+                            element={<Navigate to="/connexion" />}
+                        />
+                        <Route
                             path='*'
                             element={<Navigate to="/connexion" />}
                         />
