@@ -12,21 +12,10 @@ export default function Navbar() {
 
     const logout = async () => {
         try {
-            const logOut = await axios.post(
-                `${process.env.REACT_APP_API_URI}/logout`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json', // Ajoutez le type de contenu
-                    },
-                    // withCredentials: true, // Permet l'envoi de cookies
-                }
-            );
             removeCookie('token');
-            if (logOut.request.status === 200) {
-                window.location.replace('/connexion');
-            }
+            window.location.replace('/connexion');
         } catch (err) {
-            console.log(err);
+            throw new Error('Erreur lors du processus de déconnexion');
         }
     };
 

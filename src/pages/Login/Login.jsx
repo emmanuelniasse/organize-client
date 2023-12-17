@@ -1,39 +1,40 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+
+import axios from 'axios';
+
+import { useAuth } from '../../Contexts/AuthContext.jsx';
 
 import img1 from '../../img/img1.jpg';
 
 export default function Login() {
     const { register, handleSubmit } = useForm();
     const [cookies, setCookie] = useCookies('');
+    const { isLoggedIn, setIsLoggedIn } = useAuth();
+
 
     const onSubmit = async (userPayload) => {
-        console.log(userPayload);
-        console.log('api : ' + process.env.REACT_APP_API_URI);
-
         try {
             const loginStatus = await axios.post(
                 `${process.env.REACT_APP_API_URI}/login`,
                 userPayload,
                 {
                     headers: {
-                        Accept: 'application/json',
                         'Content-Type': 'application/json',
                     },
-                    withCredentials: true, // Permet l'envoi de cookies
+                    withCredentials: true,
                 }
             );
 
-            setCookie('token', loginStatus.data.result.token);
-            
             if (loginStatus.request.status === 200) {
+                setCookie('token', loginStatus.data.result.token);
+                setIsLoggedIn(true);
                 window.location.replace('/');
             }
         } catch (err) {
-            console.log("ERREUR" + err);
+            throw new Error('Erreur lors du processus de connexion')
         }
     };
     return (
@@ -50,7 +51,7 @@ export default function Login() {
                     <h2>Connexion</h2>
                     <hr className='my-1' />
 
-                    <p className='flash-message'>
+                    <p className='message'>
                         Vous n'avez pas encore de compte ?
                         <br />
                         <Link

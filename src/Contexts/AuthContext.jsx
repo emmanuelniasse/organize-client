@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
 
 const AuthContext = React.createContext();
 
@@ -9,10 +8,9 @@ export function useAuth() {
 }
 
 export function AuthProvider(props) {
-    const navigate = useNavigate();
-    const [cookies, setCookies] = useCookies('token');
 
-    const [isLoggedIn, setIsLoggedIn] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     const userInformations = {
         isLoggedIn,
         setIsLoggedIn,

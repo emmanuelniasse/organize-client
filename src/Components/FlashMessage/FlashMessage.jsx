@@ -11,7 +11,6 @@ export default function FlashMessage(props) {
         if (secondsRemaining > 0) {
             const timer = setInterval(() => {
                 setSecondsRemaining((seconds) => seconds - 1);
-                console.log(secondsRemaining);
             }, 1000);
 
             return () => {

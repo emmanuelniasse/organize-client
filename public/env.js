@@ -1,3 +1,3 @@
 window.env = {
-  "REACT_APP_API_URI": "http://localhost:3000"
+  "REACT_APP_API_URI": "http://localhost:3001"
 };

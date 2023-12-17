@@ -31,13 +31,11 @@ export default function Expenses() {
         const getExpenses = async () => {
             try {
                 const expensesResult = await axios.get(
-                    `${process.env.REACT_APP_API_URI}/expenses/`,
+                    `${process.env.REACT_APP_API_URI}/expenses`,
                     {
                         method: 'GET',
-                        // credentials: 'include',
+                        credentials: 'include',
                         headers: {
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json',
                             Authorization: `Bearer ${cookies.token}`,
                         },
                     }
@@ -129,16 +127,26 @@ export default function Expenses() {
                     CRUD BUTTONS À TRANSFORMER EN COMPOSANT
                 */}
                 <div className='expenses__buttons'>
-                    {/* {!isAddFormVisible && !isItemSelected && ( */}
                     <div
                         className='btn btn-add--plus'
                         onClick={handleAdd}
                     >
                         +
                     </div>
-                    {/* )} */}
                     {isItemSelected && (
                         <>
+                            {!isUpdateFormVisible && (
+                                <div
+                                    className='btn-cancel btn'
+                                    onClick={handleCancelSelection}
+                                >
+                                    <img
+                                        src={uncheckIcon}
+                                        alt='update-icon'
+                                        className='btn-icon'
+                                    />
+                                </div>
+                            )}
                             <div
                                 className='btn-delete btn'
                                 onClick={handleDelete}
@@ -162,18 +170,7 @@ export default function Expenses() {
                                 </div>
                             )}
 
-                            {!isUpdateFormVisible && (
-                                <div
-                                    className='btn-cancel btn'
-                                    onClick={handleCancelSelection}
-                                >
-                                    <img
-                                        src={uncheckIcon}
-                                        alt='update-icon'
-                                        className='btn-icon'
-                                    />
-                                </div>
-                            )}
+                            
                         </>
                     )}
                 </div>

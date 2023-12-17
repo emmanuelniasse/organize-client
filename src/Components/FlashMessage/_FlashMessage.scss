@@ -1,7 +1,9 @@
 // Abstract
 @import '../../styles/variables';
 
-.flash-message {
+
+
+.message {
     box-shadow: 0 0 7px 3px gray;
     font-family: 'Roboto';
     color: #f1f1f1;
@@ -9,3 +11,7 @@
     padding: 0.5rem 0.8rem;
     border-radius: 0.3rem;
 }
+.flash-message {
+    margin-bottom: 1rem;
+    @extend .message;
+} 

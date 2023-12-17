@@ -18,47 +18,53 @@ export default function Signup() {
                 userPayload,
                 {
                     headers: {
-                        'Content-Type': 'application/json', // Ajoutez le type de contenu
+                        'Content-Type': 'application/json', 
                     },
-                    // withCredentials: true, // Permet l'envoi de cookies
                 }
             );
 
             if (signupStatus.request.status === 200) {
-                // Notif
                 setNotification(true);
 
                 // Redirection après 3s
                 displayTime.current = 3;
                 setTimeout(() => {
                     window.location.replace('/connexion');
-                    console.log(
-                        'Redirection après ' +
-                            displayTime.current +
-                            ' secondes'
-                    );
                 }, displayTime.current * 1000);
             }
         } catch (err) {
-            console.log(err);
+            throw new Error('Erreur lors du processus d\'inscription')
         }
     };
 
     return (
         <div className='page-container align-items-center'>
+            
             <div className='flex align-items-center'>
+           
                 <div className='page-container__image w49'>
                     <img src={img2} className='w85' />
+                   
                 </div>
-
+               
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className='form'
                 >
+
+                    {notification && (
+                        <FlashMessage
+                            message={
+                                'Inscription réussie, redirection vers la page connexion dans ${s} secondes'
+                            }
+                            displayTime={displayTime.current * 1000}
+                        />
+                    )}
+
                     <h2>Inscription</h2>
                     <hr className='my-1' />
 
-                    <p className='flash-message'>
+                    <p className='message'>
                         Déjà inscrit ?
                         <br />
                         <Link
@@ -95,15 +101,6 @@ export default function Signup() {
                     </div>
                 </form>
             </div>
-
-            {notification && (
-                <FlashMessage
-                    message={
-                        'Inscription réussie, redirection vers la page connexion dans ${s} secondes'
-                    }
-                    displayTime={displayTime.current * 1000}
-                />
-            )}
         </div>
     );
 }

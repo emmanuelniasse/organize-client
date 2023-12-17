@@ -25,12 +25,9 @@ export default function ItemDeleteConfirmation(props) {
                         `${process.env.REACT_APP_API_URI}/expenses/${itemId}`,
                         {
                             method: 'DELETE',
-                            // credentials: 'include',
+                            credentials: 'include',
                             headers: {
-                                Accept: 'application/json',
                                 'Content-Type': 'application/json',
-                                // 'ngrok-skip-browser-warning':
-                                //'anyVal',
                                 Authorization: `Bearer ${cookies.token}`,
                             },
                         }
@@ -39,7 +36,7 @@ export default function ItemDeleteConfirmation(props) {
                 })
             );
         } catch (error) {
-            console.log('error:', error);
+            throw new Error('Erreur lors de la suppression de dépenses')
         }
         setAreExpensesFetched(false);
         setDeleteConfirmation(false);

@@ -35,12 +35,9 @@ export default function ExpenseAddForm(props) {
                         newExpense,
                         {
                             method: 'PUT',
-                            // // credentials: 'include',
+                            credentials: 'include',
                             headers: {
-                                Accept: 'application/json',
                                 'Content-Type': 'application/json',
-                                // 'ngrok-skip-browser-warning':
-                                //'anyVal',
                                 Authorization: `Bearer ${cookies.token}`,
                             },
                         }
@@ -50,18 +47,16 @@ export default function ExpenseAddForm(props) {
                     setCompleteItem([]);
                     setIsUpdateFormVisible(false);
                     break;
+                    
                 default:
                     await axios.post(
                         `${process.env.REACT_APP_API_URI}/expenses`,
                         newExpense,
                         {
                             method: 'POST',
-                            // // credentials: 'include',
+                            credentials: 'include',
                             headers: {
-                                Accept: 'application/json',
                                 'Content-Type': 'application/json',
-                                // 'ngrok-skip-browser-warning':
-                                //'anyVal',
                                 Authorization: `Bearer ${cookies.token}`,
                             },
                         }
@@ -69,38 +64,42 @@ export default function ExpenseAddForm(props) {
                     setIsAddFormVisible(false);
                     break;
             }
+
             setAreExpensesFetched(false);
+
         } catch (error) {
-            console.log('error:', error);
-            // PIN : Throw new err ?
+            throw new Error(error.msg);
         }
     };
 
     useEffect(() => {
         const getCategories = async () => {
             try {
+
                 let categoriesResult = await axios.get(
                     `${process.env.REACT_APP_API_URI}/categories`,
                     {
                         method: 'GET',
-                        // // credentials: 'include',
+                        credentials: 'include',
                         headers: {
-                            Accept: 'application/json',
                             'Content-Type': 'application/json',
-                            // 'ngrok-skip-browser-warning': 'anyVal',
                             Authorization: `Bearer ${cookies.token}`,
                         },
                     }
                 );
+
                 setCategories(categoriesResult.data.result);
                 setAreCategoriesFetched(true);
+
             } catch (error) {
-                console.log('error:', error);
+                throw new Error(error.msg);
             }
         };
+
         if (!areCategoriesFetched) {
             getCategories();
         }
+
     }, [areCategoriesFetched]);
 
     return (
