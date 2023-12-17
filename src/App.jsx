@@ -87,16 +87,19 @@ export default function App() {
                 element={<Outlet />}
             >
                 {isLoggedIn ? (
-                    <Route
-                        index
-                        element={<Expenses />}
-                    />
-                ) : (
                     <>
                         <Route
                             index
                             element={<Expenses />}
                         />
+                        <Route
+                            path='*'
+                            element={<Navigate to="/" />}
+                        />
+                    </>
+                    
+                ) : (
+                    <>
                         <Route
                             path='/connexion'
                             element={<Login />}
