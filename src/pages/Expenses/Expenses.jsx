@@ -120,7 +120,7 @@ export default function Expenses() {
         <>
             <div className='expenses'>
                 <h1 className='expenses__title title-page'>
-                    Dépenses
+                    Notes
                 </h1>
                 {/* 
                     PIN :
