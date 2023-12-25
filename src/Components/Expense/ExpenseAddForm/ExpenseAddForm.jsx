@@ -28,6 +28,7 @@ export default function ExpenseAddForm(props) {
 
     const onSubmit = async (newExpense) => {
         try {
+            console.log(newExpense);
             switch (action) {
                 case 'update':
                     await axios.put(
@@ -118,7 +119,7 @@ export default function ExpenseAddForm(props) {
                         }
                     />
 
-                    <select
+                    {/* <select
                         {...register('category')}
                         defaultValue={selectedOption}
                         onChange={(e) =>
@@ -141,10 +142,10 @@ export default function ExpenseAddForm(props) {
                                     value={category._id}
                                     key={category._id}
                                 >
-                                    {category.name}
+                                    {category.name} + {category._id}
                                 </option>
                             ))}
-                    </select>
+                    </select> */}
 
                     <input
                         autoComplete='off'

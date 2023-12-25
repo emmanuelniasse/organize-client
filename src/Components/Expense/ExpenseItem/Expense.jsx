@@ -24,7 +24,7 @@ export default function Expense(props) {
             }}
         >
             <h3>{name}</h3>
-            <h4>{sum} €</h4>
+            <h4>{sum > 0 && sum + ' €'}</h4>
             <p>{description}</p>
         </div>
     );
