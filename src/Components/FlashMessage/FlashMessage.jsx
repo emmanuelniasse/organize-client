@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 
 export default function FlashMessage(props) {
-    const { displayTime } = props;
+    const { displayTime, message } = props;
     const [msgDisplayed, setMsgDisplayed] = useState(true);
     const [secondsRemaining, setSecondsRemaining] = useState(
         displayTime / 1000
@@ -23,8 +23,8 @@ export default function FlashMessage(props) {
 
     return (
         msgDisplayed && (
-            <div className='flash-message'>
-                {props.message.replace('${s}', secondsRemaining)}
+            <div className="flash-message">
+                {message.replace("${s}", secondsRemaining)}
             </div>
         )
     );

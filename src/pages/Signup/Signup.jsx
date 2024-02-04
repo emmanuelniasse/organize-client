@@ -9,6 +9,7 @@ import img2 from "../../img/img2.jpg";
 export default function Signup() {
     const { register, handleSubmit } = useForm();
     const [notification, setNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState("");
     const displayTime = useRef(0);
     const redirect = useNavigate();
 
@@ -26,6 +27,9 @@ export default function Signup() {
 
             if (signupStatus.request.status === 200) {
                 setNotification(true);
+                setNotificationMessage(
+                    "Inscription réussie, vous allez être redirigé vers la page de connexion."
+                );
 
                 // Redirection après 3s
                 displayTime.current = 3;
@@ -34,7 +38,13 @@ export default function Signup() {
                 }, displayTime.current * 1000);
             }
         } catch (err) {
-            throw new Error("Erreur lors du processus d'inscription");
+            setNotification(true);
+            err.response && setNotificationMessage(err.response.data.message);
+            displayTime.current = 3;
+            setTimeout(() => {
+                console.log("test");
+                setNotification(false);
+            }, displayTime.current * 1000);
         }
     };
 
@@ -48,9 +58,7 @@ export default function Signup() {
                 <form onSubmit={handleSubmit(onSubmit)} className="form">
                     {notification && (
                         <FlashMessage
-                            message={
-                                "Inscription réussie, redirection vers la page connexion dans ${s} secondes"
-                            }
+                            message={notificationMessage}
                             displayTime={displayTime.current * 1000}
                         />
                     )}
