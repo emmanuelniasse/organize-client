@@ -1,8 +1,8 @@
-import React from 'react';
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
-import { useCookies } from 'react-cookie';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useForm } from "react-hook-form";
+import { toast } from "../../../Components/Toast/Toast.jsx";
 
 export default function ExpenseAddForm(props) {
     const {
@@ -20,25 +20,23 @@ export default function ExpenseAddForm(props) {
     const { register, handleSubmit } = useForm();
 
     // States
-    const [selectedOption, setSelectedOption] = useState('');
-    const [categories, setCategories] = useState('');
-    const [areCategoriesFetched, setAreCategoriesFetched] =
-        useState(false);
-    const [cookies, setCookie] = useCookies('');
+    const [selectedOption, setSelectedOption] = useState("");
+    const [categories, setCategories] = useState("");
+    const [areCategoriesFetched, setAreCategoriesFetched] = useState(false);
+    const [cookies, setCookie] = useCookies("");
 
     const onSubmit = async (newExpense) => {
         try {
-            console.log(newExpense);
             switch (action) {
-                case 'update':
+                case "update":
                     await axios.put(
                         `${process.env.REACT_APP_API_URI}/expenses/${itemSelected}`, // PIN : au lieu de itemSelected => completeItem._id ?
                         newExpense,
                         {
-                            method: 'PUT',
-                            credentials: 'include',
+                            method: "PUT",
+                            credentials: "include",
                             headers: {
-                                'Content-Type': 'application/json',
+                                "Content-Type": "application/json",
                                 Authorization: `Bearer ${cookies.token}`,
                             },
                         }
@@ -47,27 +45,27 @@ export default function ExpenseAddForm(props) {
                     setItems([]);
                     setCompleteItem([]);
                     setIsUpdateFormVisible(false);
+                    toast.warning("Modification effectuée");
                     break;
-                    
+
                 default:
                     await axios.post(
                         `${process.env.REACT_APP_API_URI}/expenses`,
                         newExpense,
                         {
-                            method: 'POST',
-                            credentials: 'include',
+                            method: "POST",
+                            credentials: "include",
                             headers: {
-                                'Content-Type': 'application/json',
+                                "Content-Type": "application/json",
                                 Authorization: `Bearer ${cookies.token}`,
                             },
                         }
                     );
                     setIsAddFormVisible(false);
+                    toast.success("Ajout effectué");
                     break;
             }
-
             setAreExpensesFetched(false);
-
         } catch (error) {
             throw new Error(error.msg);
         }
@@ -76,14 +74,13 @@ export default function ExpenseAddForm(props) {
     useEffect(() => {
         const getCategories = async () => {
             try {
-
                 let categoriesResult = await axios.get(
                     `${process.env.REACT_APP_API_URI}/categories`,
                     {
-                        method: 'GET',
-                        credentials: 'include',
+                        method: "GET",
+                        credentials: "include",
                         headers: {
-                            'Content-Type': 'application/json',
+                            "Content-Type": "application/json",
                             Authorization: `Bearer ${cookies.token}`,
                         },
                     }
@@ -91,7 +88,6 @@ export default function ExpenseAddForm(props) {
 
                 setCategories(categoriesResult.data.result);
                 setAreCategoriesFetched(true);
-
             } catch (error) {
                 throw new Error(error.msg);
             }
@@ -100,23 +96,17 @@ export default function ExpenseAddForm(props) {
         if (!areCategoriesFetched) {
             getCategories();
         }
-
     }, [areCategoriesFetched]);
 
     return (
         <>
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className='form add-form'
-            >
-                <div className='add-form__inputs-group'>
+            <form onSubmit={handleSubmit(onSubmit)} className="form add-form">
+                <div className="add-form__inputs-group">
                     <input
-                        autoComplete='off'
-                        {...register('name')}
-                        placeholder={'Libellé'}
-                        defaultValue={
-                            completeItem ? completeItem.name : ''
-                        }
+                        autoComplete="off"
+                        {...register("name")}
+                        placeholder={"Libellé"}
+                        defaultValue={completeItem ? completeItem.name : ""}
                     />
 
                     {/* <select
@@ -148,45 +138,37 @@ export default function ExpenseAddForm(props) {
                     </select> */}
 
                     <input
-                        autoComplete='off'
-                        type='number'
-                        {...register('sum')}
-                        placeholder={'Somme'}
-                        defaultValue={
-                            completeItem ? completeItem.sum : ''
-                        }
+                        autoComplete="off"
+                        type="number"
+                        {...register("sum")}
+                        placeholder={"Somme"}
+                        defaultValue={completeItem ? completeItem.sum : ""}
                     />
                     <textarea
-                        autoComplete='off'
-                        {...register('description')}
-                        rows='5'
-                        cols='33'
-                        placeholder={'Description'}
+                        autoComplete="off"
+                        {...register("description")}
+                        rows="5"
+                        cols="33"
+                        placeholder={"Description"}
                         defaultValue={
-                            completeItem
-                                ? completeItem.description
-                                : ''
+                            completeItem ? completeItem.description : ""
                         }
                     />
-                    <input type='hidden' value={action} />
-                    <div className='btn-group'>
+                    <input type="hidden" value={action} />
+                    <div className="btn-group">
                         <input
-                            type='submit'
+                            type="submit"
                             className={
-                                'btn ' +
-                                (completeItem
-                                    ? 'btn-update'
-                                    : 'btn-add')
+                                "btn " +
+                                (completeItem ? "btn-update" : "btn-add")
                             }
-                            value={
-                                completeItem ? 'Modifier' : 'Ajouter'
-                            }
+                            value={completeItem ? "Modifier" : "Ajouter"}
                         />
                         <input
-                            className='btn btn-cancel'
-                            type='button'
+                            className="btn btn-cancel"
+                            type="button"
                             onClick={handleCancel}
-                            value='Annuler'
+                            value="Annuler"
                         />
                     </div>
                 </div>

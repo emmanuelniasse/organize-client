@@ -1,6 +1,7 @@
-import React from 'react';
-import axios from 'axios';
-import { useCookies } from 'react-cookie';
+import axios from "axios";
+import React from "react";
+import { useCookies } from "react-cookie";
+import { toast } from "../../../Components/Toast/Toast.jsx";
 
 export default function ItemDeleteConfirmation(props) {
     const {
@@ -13,7 +14,7 @@ export default function ItemDeleteConfirmation(props) {
     } = props;
 
     // STATES
-    const [cookies, setCookie] = useCookies('');
+    const [cookies, setCookie] = useCookies("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,10 +25,10 @@ export default function ItemDeleteConfirmation(props) {
                     await axios.delete(
                         `${process.env.REACT_APP_API_URI}/expenses/${itemId}`,
                         {
-                            method: 'DELETE',
-                            credentials: 'include',
+                            method: "DELETE",
+                            credentials: "include",
                             headers: {
-                                'Content-Type': 'application/json',
+                                "Content-Type": "application/json",
                                 Authorization: `Bearer ${cookies.token}`,
                             },
                         }
@@ -35,8 +36,13 @@ export default function ItemDeleteConfirmation(props) {
                     setAreExpensesFetched(false);
                 })
             );
+
+            // PIN : Externaliser ce bout de code
+            const pluralSuffix = items.length > 1 ? "s" : "";
+            const message = `Suppression${pluralSuffix} effectuée${pluralSuffix}`;
+            toast.success(message);
         } catch (error) {
-            throw new Error('Erreur lors de la suppression de dépenses')
+            throw new Error("Erreur lors de la suppression de dépenses");
         }
         setAreExpensesFetched(false);
         setDeleteConfirmation(false);
@@ -45,18 +51,12 @@ export default function ItemDeleteConfirmation(props) {
     };
     return (
         <>
-            <form
-                onSubmit={handleSubmit}
-                className='form delete-form'
-            >
-                <div className='form__buttons'>
-                    <div
-                        className='btn-cancel btn'
-                        onClick={handleCancel}
-                    >
+            <form onSubmit={handleSubmit} className="form delete-form">
+                <div className="form__buttons">
+                    <div className="btn-cancel btn" onClick={handleCancel}>
                         Annuler
                     </div>
-                    <button className='btn-delete btn' type='submit'>
+                    <button className="btn-delete btn" type="submit">
                         Confirmer la suppression
                     </button>
                 </div>

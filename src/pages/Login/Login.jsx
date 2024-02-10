@@ -1,12 +1,14 @@
+import axios from "axios";
 import React from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-
-import axios from "axios";
+import {
+    ToastContainerComponent,
+    toast,
+} from "../../Components/Toast/Toast.jsx";
 
 import { useAuth } from "../../Contexts/AuthContext.jsx";
-
 import img1 from "../../img/img1.jpg";
 
 export default function Login() {
@@ -30,13 +32,17 @@ export default function Login() {
             if (loginStatus.request.status === 200) {
                 setCookie("token", loginStatus.data.result.token);
                 setIsLoggedIn(true);
+                toast.success("Connexion réussie");
             }
         } catch (err) {
-            throw new Error("Erreur lors du processus de connexion");
+            const errorMsg = err.response.data;
+            toast.error(errorMsg);
         }
     };
+
     return (
         <div className="page-container align-items-center">
+            <ToastContainerComponent />
             <div className="flex align-items-center">
                 <div className="page-container__image w49">
                     <img src={img1} className="w85" />
