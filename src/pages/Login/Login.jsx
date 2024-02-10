@@ -41,11 +41,11 @@ export default function Login() {
     };
 
     return (
-        <div className="page-container align-items-center">
+        <div className="page-container justify-and-align-center">
             <ToastContainerComponent />
-            <div className="flex align-items-center">
+            <div className="h-min-100 flex justify-and-align-center">
                 <div className="page-container__image w49">
-                    <img src={img1} className="w85" />
+                    <img src={img1} className="w100" />
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="form">

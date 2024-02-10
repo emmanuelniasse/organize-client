@@ -49,10 +49,10 @@ export default function Signup() {
     };
 
     return (
-        <div className="page-container align-items-center">
-            <div className="flex align-items-center">
+        <div className="page-container justify-and-align-center">
+            <div className="h-min-100 flex justify-and-align-center">
                 <div className="page-container__image w49">
-                    <img src={img2} className="w85" />
+                    <img src={img2} className="w100" />
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="form">

@@ -1,15 +1,14 @@
 // Components
-@import '../Components/Navbar/_Navbar.scss',
-    '../Components/Footer/_Footer.scss',
-    '../Components/Layout/_Layout.scss',
-    '../Components/Expense/ExpenseItem/_expense.scss',
-    '../styles/form.scss', '../Components/FlashMessage/FlashMessage';
+@import "../Components/Navbar/_Navbar.scss", "../Components/Footer/_Footer.scss",
+    "../Components/Layout/_Layout.scss",
+    "../Components/Expense/ExpenseItem/_expense.scss", "../styles/form.scss",
+    "../Components/FlashMessage/FlashMessage";
 
 // Pages
-@import '../pages/_pages.scss';
+@import "../pages/_pages.scss";
 
 // Abstracts
-@import './variables';
+@import "./variables";
 
 /*** GENERAL ***/
 * {
@@ -53,9 +52,10 @@ ul li {
     justify-content: space-between;
 }
 
-.align-items-center {
+.justify-and-align-center {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .column {
@@ -69,6 +69,10 @@ ul li {
 
 .underline {
     text-decoration: underline;
+}
+
+.h-min-100 {
+    min-height: 70dvh;
 }
 
 .container {
