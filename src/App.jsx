@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import React, { useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 
 // Pages
-import Expenses from './pages/Expenses/Expenses';
-import Login from './pages/Login/Login';
-import Signup from './pages/Signup/Signup';
+import Expenses from "./pages/Expenses/Expenses";
+import Login from "./pages/Login/Login";
+import Signup from "./pages/Signup/Signup";
 
-import { useAuth } from './Contexts/AuthContext.jsx';
+import { useAuth } from "./Contexts/AuthContext.jsx";
 
 export default function App() {
     const { isLoggedIn, setIsLoggedIn } = useAuth();
-    const [cookies] = useCookies(['token']);
+    const [cookies] = useCookies(["token"]);
 
     useEffect(() => {
         const token = cookies.token;
@@ -25,38 +25,19 @@ export default function App() {
 
     return (
         <Routes>
-            <Route
-                path='/'
-                element={<Outlet />}
-            >
+            <Route path="/" element={<Outlet />}>
                 {isLoggedIn ? (
                     <>
-                        <Route
-                            index
-                            element={<Expenses />}
-                        />
-                        <Route
-                            path='*'
-                            element={<Navigate to="/" />}
-                        />
+                        <Route index element={<Expenses />} />
+                        <Route path="*" element={<Navigate to="/" />} />
                     </>
-                    
                 ) : (
                     <>
+                        <Route path="/connexion" element={<Login />} />
+                        <Route path="/inscription" element={<Signup />} />
+                        <Route index element={<Navigate to="/connexion" />} />
                         <Route
-                            path='/connexion'
-                            element={<Login />}
-                        />
-                        <Route
-                            path='/inscription'
-                            element={<Signup />}
-                        />
-                        <Route
-                            index
-                            element={<Navigate to="/connexion" />}
-                        />
-                        <Route
-                            path='*'
+                            path="*"
                             element={<Navigate to="/connexion" />}
                         />
                     </>
