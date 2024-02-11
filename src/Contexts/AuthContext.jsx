@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
+import { toast } from "../Components/Toast/Toast.jsx";
 const AuthContext = React.createContext();
 
 export function useAuth() {
@@ -16,6 +16,10 @@ export function AuthProvider(props) {
         flashMessage,
         setFlashMessage,
     };
+
+    useEffect(() => {
+        toast(flashMessage);
+    }, [flashMessage]);
 
     return (
         <AuthContext.Provider value={userInformations}>

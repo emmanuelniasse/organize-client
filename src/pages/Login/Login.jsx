@@ -1,12 +1,8 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { Link, redirect } from "react-router-dom";
-import {
-    ToastContainerComponent,
-    toast,
-} from "../../Components/Toast/Toast.jsx";
 
 import { useAuth } from "../../Contexts/AuthContext.jsx";
 import img1 from "../../img/img1.jpg";
@@ -14,11 +10,7 @@ import img1 from "../../img/img1.jpg";
 export default function Login() {
     const { register, handleSubmit } = useForm();
     const [cookies, setCookie] = useCookies("");
-    const { setIsLoggedIn, setFlashMessage, flashMessage } = useAuth();
-
-    useEffect(() => {
-        flashMessage && toast(flashMessage);
-    }, [setFlashMessage, flashMessage]);
+    const { setIsLoggedIn, setFlashMessage } = useAuth();
 
     const onSubmit = async (userPayload) => {
         try {
@@ -41,13 +33,12 @@ export default function Login() {
             }
         } catch (err) {
             const errorMsg = err.response.data;
-            toast.error(errorMsg);
+            setFlashMessage(errorMsg);
         }
     };
 
     return (
         <div className="page-container justify-and-align-center">
-            <ToastContainerComponent />
             <div className="h-min-100 flex justify-and-align-center">
                 <div className="page-container__image w49">
                     <img src={img1} className="w100" />

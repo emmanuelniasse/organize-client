@@ -13,13 +13,6 @@ import uncheckIcon from "../../img/icons/uncheckIcon.svg";
 
 import SyncLoader from "react-spinners/SyncLoader";
 
-import {
-    ToastContainerComponent,
-    toast,
-} from "../../Components/Toast/Toast.jsx";
-
-import { useAuth } from "../../Contexts/AuthContext.jsx";
-
 export default function Expenses() {
     // States
     const [expenses, setExpenses] = useState([]);
@@ -32,7 +25,6 @@ export default function Expenses() {
     const [completeItem, setCompleteItem] = useState([]);
     const [cookies, setCookie] = useCookies("token");
     const [loading, setLoading] = useState(true);
-    const { flashMessage } = useAuth();
 
     // Récupère les dépenses de la DB
     const getExpenses = async () => {
@@ -61,14 +53,7 @@ export default function Expenses() {
         }
     }, [areExpensesFetched]);
 
-    useEffect(() => {
-        console.log(flashMessage);
-        console.log(flashMessage);
-        flashMessage && toast(flashMessage);
-    }, [flashMessage]);
-
     // PIN : BUTTON ACTIONS à transformer en composant
-
     // Affiche le formulaire au clic sur le bouton "Ajouter une classe"
     const handleAdd = () => {
         setIsAddFormVisible(true);
@@ -138,7 +123,6 @@ export default function Expenses() {
         <>
             <div className="expenses">
                 <h1 className="expenses__title title-page">Notes</h1>
-                <ToastContainerComponent />
                 {/* 
                     PIN :
                     CRUD BUTTONS À TRANSFORMER EN COMPOSANT

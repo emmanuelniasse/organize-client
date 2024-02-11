@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useCookies } from "react-cookie";
-import { toast } from "../../../Components/Toast/Toast.jsx";
+import { useAuth } from "../../../Contexts/AuthContext.jsx";
 
 export default function ItemDeleteConfirmation(props) {
     const {
@@ -12,6 +12,8 @@ export default function ItemDeleteConfirmation(props) {
         setCompleteItem,
         items,
     } = props;
+
+    const { setFlashMessage } = useAuth();
 
     // STATES
     const [cookies, setCookie] = useCookies("");
@@ -26,7 +28,7 @@ export default function ItemDeleteConfirmation(props) {
                         `${process.env.REACT_APP_API_URI}/expenses/${itemId}`,
                         {
                             method: "DELETE",
-                            credentials: "include",
+                            // credentials: "include",
                             headers: {
                                 "Content-Type": "application/json",
                                 Authorization: `Bearer ${cookies.token}`,
@@ -40,7 +42,7 @@ export default function ItemDeleteConfirmation(props) {
             // PIN : Externaliser ce bout de code
             const pluralSuffix = items.length > 1 ? "s" : "";
             const message = `Dépense${pluralSuffix} supprimée${pluralSuffix}`;
-            toast.success(message);
+            setFlashMessage(message);
         } catch (error) {
             throw new Error("Erreur lors de la suppression de dépenses");
         }

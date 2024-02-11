@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { toast } from "../../../Components/Toast/Toast.jsx";
+import { useAuth } from "../../../Contexts/AuthContext.jsx";
 
 export default function ExpenseAddForm(props) {
     const {
@@ -16,6 +17,8 @@ export default function ExpenseAddForm(props) {
         setCompleteItem,
         completeItem,
     } = props;
+
+    const { setFlashMessage } = useAuth();
 
     const { register, handleSubmit } = useForm();
 
@@ -34,7 +37,7 @@ export default function ExpenseAddForm(props) {
                         newExpense,
                         {
                             method: "PUT",
-                            credentials: "include",
+                            // credentials: "include",
                             headers: {
                                 "Content-Type": "application/json",
                                 Authorization: `Bearer ${cookies.token}`,
@@ -45,7 +48,7 @@ export default function ExpenseAddForm(props) {
                     setItems([]);
                     setCompleteItem([]);
                     setIsUpdateFormVisible(false);
-                    toast.success("Dépense modifiée");
+                    setFlashMessage("Dépense modifiée");
                     break;
 
                 default:
@@ -54,7 +57,7 @@ export default function ExpenseAddForm(props) {
                         newExpense,
                         {
                             method: "POST",
-                            credentials: "include",
+                            // credentials: "include",
                             headers: {
                                 "Content-Type": "application/json",
                                 Authorization: `Bearer ${cookies.token}`,
@@ -62,13 +65,13 @@ export default function ExpenseAddForm(props) {
                         }
                     );
                     setIsAddFormVisible(false);
-                    toast.success("Nouvelle dépense ajoutée");
+                    setFlashMessage("Nouvelle dépense ajoutée");
                     break;
             }
             setAreExpensesFetched(false);
         } catch (error) {
             const errorMessage = error.response.data.message;
-            toast.error(errorMessage);
+            setFlashMessage(errorMessage);
             throw new Error(error.msg);
         }
     };
@@ -80,7 +83,7 @@ export default function ExpenseAddForm(props) {
                     `${process.env.REACT_APP_API_URI}/categories`,
                     {
                         method: "GET",
-                        credentials: "include",
+                        // credentials: "include",
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${cookies.token}`,
