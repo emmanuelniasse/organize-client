@@ -11,7 +11,14 @@ import deleteIcon from "../../img/icons/deleteIcon.svg";
 import editIcon from "../../img/icons/editIcon.svg";
 import uncheckIcon from "../../img/icons/uncheckIcon.svg";
 
-import { ToastContainerComponent } from "../../Components/Toast/Toast.jsx";
+import SyncLoader from "react-spinners/SyncLoader";
+
+import {
+    ToastContainerComponent,
+    toast,
+} from "../../Components/Toast/Toast.jsx";
+
+import { useAuth } from "../../Contexts/AuthContext.jsx";
 
 export default function Expenses() {
     // States
@@ -24,31 +31,40 @@ export default function Expenses() {
     const [areExpensesFetched, setAreExpensesFetched] = useState(false);
     const [completeItem, setCompleteItem] = useState([]);
     const [cookies, setCookie] = useCookies("token");
+    const [loading, setLoading] = useState(true);
+    const { flashMessage } = useAuth();
 
     // Récupère les dépenses de la DB
+    const getExpenses = async () => {
+        try {
+            const expensesResult = await axios.get(
+                `${process.env.REACT_APP_API_URI}/expenses`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        Authorization: `Bearer ${cookies.token}`,
+                    },
+                }
+            );
+            setExpenses(expensesResult.data.result);
+            setLoading(false);
+
+            setAreExpensesFetched(true);
+        } catch (err) {
+            console.log("Erreur lors de la requête (expenses) : " + err);
+        }
+    };
+
     useEffect(() => {
-        const getExpenses = async () => {
-            try {
-                const expensesResult = await axios.get(
-                    `${process.env.REACT_APP_API_URI}/expenses`,
-                    {
-                        method: "GET",
-                        credentials: "include",
-                        headers: {
-                            Authorization: `Bearer ${cookies.token}`,
-                        },
-                    }
-                );
-                setExpenses(expensesResult.data.result);
-                setAreExpensesFetched(true);
-            } catch (err) {
-                console.log("Erreur lors de la requête (expenses) : " + err);
-            }
-        };
         if (!areExpensesFetched) {
             getExpenses();
         }
     }, [areExpensesFetched]);
+
+    useEffect(() => {
+        flashMessage && toast(flashMessage);
+    }, [flashMessage]);
 
     // PIN : BUTTON ACTIONS à transformer en composant
 
@@ -112,7 +128,11 @@ export default function Expenses() {
             }
         });
     };
-
+    const override = {
+        display: "block",
+        margin: "0 auto",
+        borderColor: "#142b5c",
+    };
     return (
         <>
             <div className="expenses">
@@ -206,32 +226,40 @@ export default function Expenses() {
                 )}
 
                 <ul className="expenses__list">
-                    {expenses.map((expense) => {
-                        let itemSelectedClass = items.includes(expense._id)
-                            ? "item-selected"
-                            : "";
+                    {loading ? (
+                        <SyncLoader
+                            color={"#142b5c"}
+                            loading={loading}
+                            cssOverride={override}
+                            size={8}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                        />
+                    ) : (
+                        expenses.map((expense) => {
+                            let itemSelectedClass = items.includes(expense._id)
+                                ? "item-selected"
+                                : "";
 
-                        return (
-                            <li
-                                key={expense._id}
-                                className={`expenses__list__item ${itemSelectedClass}`}
-                            >
-                                <Expense
-                                    name={expense.name}
-                                    sum={expense.sum}
-                                    description={expense.description}
-                                    slug={expense.slug}
-                                    setIsItemSelected={setIsItemSelected}
-                                    handleListItems={handleListItems}
-                                    expenseId={expense._id}
-                                    // handleCompleteExpense={
-                                    //     handleCompleteExpense
-                                    // }
-                                    expenseComplete={expense}
-                                />
-                            </li>
-                        );
-                    })}
+                            return (
+                                <li
+                                    key={expense._id}
+                                    className={`expenses__list__item ${itemSelectedClass}`}
+                                >
+                                    <Expense
+                                        name={expense.name}
+                                        sum={expense.sum}
+                                        description={expense.description}
+                                        slug={expense.slug}
+                                        setIsItemSelected={setIsItemSelected}
+                                        handleListItems={handleListItems}
+                                        expenseId={expense._id}
+                                        expenseComplete={expense}
+                                    />
+                                </li>
+                            );
+                        })
+                    )}
                 </ul>
             </div>
         </>

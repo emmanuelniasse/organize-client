@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import FlashMessage from "../../Components/FlashMessage/FlashMessage";
+import { useAuth } from "../../Contexts/AuthContext.jsx";
 
 import img2 from "../../img/img2.jpg";
 
@@ -12,6 +13,7 @@ export default function Signup() {
     const [notificationMessage, setNotificationMessage] = useState("");
     const displayTime = useRef(0);
     const redirect = useNavigate();
+    const { setFlashMessage } = useAuth();
 
     const onSubmit = async (userPayload) => {
         try {
@@ -26,25 +28,14 @@ export default function Signup() {
             );
 
             if (signupStatus.request.status === 200) {
-                setNotification(true);
-                setNotificationMessage(
-                    "Inscription réussie, vous allez être redirigé vers la page de connexion."
+                redirect("/connexion");
+                setFlashMessage(
+                    "Incription réalisée avec succès. Vous pouvez vous connecter."
                 );
-
-                // Redirection après 3s
-                displayTime.current = 3;
-                setTimeout(() => {
-                    redirect("/connexion");
-                }, displayTime.current * 1000);
             }
         } catch (err) {
-            setNotification(true);
-            err.response && setNotificationMessage(err.response.data.message);
-            displayTime.current = 3;
-            setTimeout(() => {
-                console.log("test");
-                setNotification(false);
-            }, displayTime.current * 1000);
+            const errorMsg = err.response.data;
+            err.response && setFlashMessage(errorMsg);
         }
     };
 

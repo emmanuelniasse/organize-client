@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect} from 'react';
-import { useCookies } from 'react-cookie';
+import React, { useContext, useState } from "react";
 
 const AuthContext = React.createContext();
 
@@ -8,12 +7,14 @@ export function useAuth() {
 }
 
 export function AuthProvider(props) {
-
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [flashMessage, setFlashMessage] = useState("");
 
     const userInformations = {
         isLoggedIn,
         setIsLoggedIn,
+        flashMessage,
+        setFlashMessage,
     };
 
     return (

@@ -1,8 +1,8 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import {
     ToastContainerComponent,
     toast,
@@ -14,7 +14,11 @@ import img1 from "../../img/img1.jpg";
 export default function Login() {
     const { register, handleSubmit } = useForm();
     const [cookies, setCookie] = useCookies("");
-    const { isLoggedIn, setIsLoggedIn } = useAuth();
+    const { setIsLoggedIn, setFlashMessage, flashMessage } = useAuth();
+
+    useEffect(() => {
+        flashMessage && toast(flashMessage);
+    }, [setFlashMessage, flashMessage]);
 
     const onSubmit = async (userPayload) => {
         try {
@@ -32,7 +36,8 @@ export default function Login() {
             if (loginStatus.request.status === 200) {
                 setCookie("token", loginStatus.data.result.token);
                 setIsLoggedIn(true);
-                toast.success("Connexion réussie");
+                redirect("/");
+                setFlashMessage("Bienvenue sur Organize !");
             }
         } catch (err) {
             const errorMsg = err.response.data;

@@ -45,7 +45,7 @@ export default function ExpenseAddForm(props) {
                     setItems([]);
                     setCompleteItem([]);
                     setIsUpdateFormVisible(false);
-                    toast.warning("Modification effectuée");
+                    toast.success("Dépense modifiée");
                     break;
 
                 default:
@@ -62,11 +62,13 @@ export default function ExpenseAddForm(props) {
                         }
                     );
                     setIsAddFormVisible(false);
-                    toast.success("Ajout effectué");
+                    toast.success("Nouvelle dépense ajoutée");
                     break;
             }
             setAreExpensesFetched(false);
         } catch (error) {
+            const errorMessage = error.response.data.message;
+            toast.error(errorMessage);
             throw new Error(error.msg);
         }
     };
