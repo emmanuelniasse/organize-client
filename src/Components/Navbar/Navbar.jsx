@@ -12,7 +12,9 @@ export default function Navbar() {
         try {
             removeCookie("token");
             setIsLoggedIn(false);
-            setFlashMessage("À bientôt sur Organize !");
+            setFlashMessage({
+                message: "À bientôt sur Organize !",
+            });
         } catch (err) {
             throw new Error("Erreur lors du processus de déconnexion");
         }

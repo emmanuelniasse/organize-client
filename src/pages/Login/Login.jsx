@@ -29,7 +29,9 @@ export default function Login() {
                 setCookie("token", loginStatus.data.result.token);
                 setIsLoggedIn(true);
                 redirect("/");
-                setFlashMessage("Bienvenue sur Organize !");
+                setFlashMessage({
+                    message: "Bienvenue sur Organize !",
+                });
             }
         } catch (err) {
             const errorMsg = err.response.data;

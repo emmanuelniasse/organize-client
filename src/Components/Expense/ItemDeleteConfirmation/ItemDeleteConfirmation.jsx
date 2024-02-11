@@ -42,7 +42,10 @@ export default function ItemDeleteConfirmation(props) {
             // PIN : Externaliser ce bout de code
             const pluralSuffix = items.length > 1 ? "s" : "";
             const message = `Dépense${pluralSuffix} supprimée${pluralSuffix}`;
-            setFlashMessage(message);
+            setFlashMessage({
+                message,
+                type: "success",
+            });
         } catch (error) {
             throw new Error("Erreur lors de la suppression de dépenses");
         }

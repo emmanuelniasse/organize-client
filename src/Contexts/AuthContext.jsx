@@ -8,7 +8,7 @@ export function useAuth() {
 
 export function AuthProvider(props) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [flashMessage, setFlashMessage] = useState("");
+    const [flashMessage, setFlashMessage] = useState({});
 
     const userInformations = {
         isLoggedIn,
@@ -18,8 +18,18 @@ export function AuthProvider(props) {
     };
 
     useEffect(() => {
-        toast(flashMessage);
-    }, [flashMessage]);
+        switch (flashMessage.type) {
+            case "success":
+                toast.success(flashMessage.message);
+                break;
+            case "error":
+                toast.error(flashMessage.message);
+                break;
+            default:
+                toast(flashMessage.message);
+                break;
+        }
+    }, [flashMessage, setFlashMessage]);
 
     return (
         <AuthContext.Provider value={userInformations}>

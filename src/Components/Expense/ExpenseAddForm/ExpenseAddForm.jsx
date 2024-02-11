@@ -48,7 +48,10 @@ export default function ExpenseAddForm(props) {
                     setItems([]);
                     setCompleteItem([]);
                     setIsUpdateFormVisible(false);
-                    setFlashMessage("Dépense modifiée");
+                    setFlashMessage({
+                        message: "Dépense modifiée",
+                        type: "success",
+                    });
                     break;
 
                 default:
@@ -65,13 +68,19 @@ export default function ExpenseAddForm(props) {
                         }
                     );
                     setIsAddFormVisible(false);
-                    setFlashMessage("Nouvelle dépense ajoutée");
+                    setFlashMessage({
+                        message: "Dépense ajoutée",
+                        type: "success",
+                    });
                     break;
             }
             setAreExpensesFetched(false);
         } catch (error) {
             const errorMessage = error.response.data.message;
-            setFlashMessage(errorMessage);
+            setFlashMessage({
+                message: errorMessage,
+                type: "error",
+            });
             throw new Error(error.msg);
         }
     };
