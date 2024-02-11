@@ -63,6 +63,7 @@ export default function Expenses() {
     }, [areExpensesFetched]);
 
     useEffect(() => {
+        console.log("test");
         flashMessage && toast(flashMessage);
     }, [flashMessage]);
 
