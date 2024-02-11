@@ -49,7 +49,6 @@ export default function Expenses() {
             );
             setExpenses(expensesResult.data.result);
             setLoading(false);
-
             setAreExpensesFetched(true);
         } catch (err) {
             console.log("Erreur lors de la requête (expenses) : " + err);
@@ -63,6 +62,7 @@ export default function Expenses() {
     }, [areExpensesFetched]);
 
     useEffect(() => {
+        console.log(flashMessage);
         flashMessage && toast(flashMessage);
     }, [flashMessage]);
 
