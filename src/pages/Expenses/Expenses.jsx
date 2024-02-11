@@ -41,7 +41,7 @@ export default function Expenses() {
                 `${process.env.REACT_APP_API_URI}/expenses`,
                 {
                     method: "GET",
-                    credentials: "include",
+                    // credentials: "include",
                     headers: {
                         Authorization: `Bearer ${cookies.token}`,
                     },
