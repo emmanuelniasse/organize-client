@@ -63,6 +63,7 @@ export default function Expenses() {
 
     useEffect(() => {
         console.log(flashMessage);
+        console.log(flashMessage);
         flashMessage && toast(flashMessage);
     }, [flashMessage]);
 
