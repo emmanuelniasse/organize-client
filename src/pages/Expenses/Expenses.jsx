@@ -1,17 +1,19 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 // Components
 import AddForm from "../../Components/Expense/ExpenseAddForm/ExpenseAddForm";
-import Expense from "../../Components/Expense/ExpenseItem/Expense";
 import DeleteConfirmation from "../../Components/Expense/ItemDeleteConfirmation/ItemDeleteConfirmation";
 
 // Icons
+import SyncLoader from "react-spinners/SyncLoader";
 import deleteIcon from "../../img/icons/deleteIcon.svg";
 import editIcon from "../../img/icons/editIcon.svg";
 import uncheckIcon from "../../img/icons/uncheckIcon.svg";
 
-import SyncLoader from "react-spinners/SyncLoader";
+const ExpenseItem = React.lazy(() =>
+    import("../../Components/Expense/ExpenseItem/ExpenseItem")
+);
 
 export default function Expenses() {
     // States
@@ -24,7 +26,6 @@ export default function Expenses() {
     const [areExpensesFetched, setAreExpensesFetched] = useState(false);
     const [completeItem, setCompleteItem] = useState([]);
     const [cookies, setCookie] = useCookies("token");
-    const [loading, setLoading] = useState(true);
 
     // Récupère les dépenses de la DB
     const getExpenses = async () => {
@@ -40,7 +41,6 @@ export default function Expenses() {
                 }
             );
             setExpenses(expensesResult.data.result);
-            setLoading(false);
             setAreExpensesFetched(true);
         } catch (err) {
             console.log("Erreur lors de la requête (expenses) : " + err);
@@ -90,6 +90,8 @@ export default function Expenses() {
     // Stock l'id des items sélectionnés
     // `previousItems` représente la valeur précédente de l'état items
     const handleListItems = (completeExpense) => {
+        console.log(completeExpense);
+        console.log("complete expense ?");
         setItems((previousItems) => {
             if (previousItems.includes(completeExpense._id)) {
                 // Si l'élément est déjà présent, on le supprime du tableau
@@ -210,18 +212,21 @@ export default function Expenses() {
                     </div>
                 )}
 
-                <ul className="expenses__list">
-                    {loading ? (
-                        <SyncLoader
-                            color={"#142b5c"}
-                            loading={loading}
-                            cssOverride={override}
-                            size={8}
-                            aria-label="Loading Spinner"
-                            data-testid="loader"
-                        />
-                    ) : (
-                        expenses.map((expense) => {
+                <Suspense
+                    fallback={
+                        <div className="justify-and-align-center  my-1">
+                            <SyncLoader
+                                color={"#142b5c"}
+                                cssOverride={override}
+                                size={8}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                            />
+                        </div>
+                    }
+                >
+                    <ul className="expenses__list">
+                        {expenses.map((expense) => {
                             let itemSelectedClass = items.includes(expense._id)
                                 ? "item-selected"
                                 : "";
@@ -231,21 +236,16 @@ export default function Expenses() {
                                     key={expense._id}
                                     className={`expenses__list__item ${itemSelectedClass}`}
                                 >
-                                    <Expense
-                                        name={expense.name}
-                                        sum={expense.sum}
-                                        description={expense.description}
-                                        slug={expense.slug}
+                                    <ExpenseItem
+                                        expense={expense}
                                         setIsItemSelected={setIsItemSelected}
                                         handleListItems={handleListItems}
-                                        expenseId={expense._id}
-                                        expenseComplete={expense}
                                     />
                                 </li>
                             );
-                        })
-                    )}
-                </ul>
+                        })}
+                    </ul>
+                </Suspense>
             </div>
         </>
     );
