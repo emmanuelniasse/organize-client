@@ -17,6 +17,7 @@ export function AuthProvider(props) {
         setFlashMessage,
     };
 
+    // TODO : Séparer cette partie du code
     useEffect(() => {
         switch (flashMessage.type) {
             case "success":

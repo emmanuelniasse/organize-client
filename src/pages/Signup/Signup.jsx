@@ -1,17 +1,13 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import FlashMessage from "../../Components/FlashMessage/FlashMessage";
 import { useAuth } from "../../Contexts/AuthContext.jsx";
 
 import img2 from "../../img/img2.jpg";
 
 export default function Signup() {
     const { register, handleSubmit } = useForm();
-    const [notification, setNotification] = useState(false);
-    const [notificationMessage, setNotificationMessage] = useState("");
-    const displayTime = useRef(0);
     const redirect = useNavigate();
     const { setFlashMessage } = useAuth();
 
@@ -29,13 +25,22 @@ export default function Signup() {
 
             if (signupStatus.request.status === 200) {
                 redirect("/connexion");
-                setFlashMessage(
-                    "Incription réalisée avec succès. Vous pouvez vous connecter."
-                );
+                setFlashMessage({
+                    message: "Incription réalisée avec succès, connectez-vous",
+                    type: "success",
+                });
             }
         } catch (err) {
-            const errorMsg = err.response.data;
-            err.response && setFlashMessage(errorMsg);
+            // TODO : Redondance ! Exactement le meme code, juste le message change
+            let errorMsg = "Erreur lors de l'inscription.";
+            const errorResponseMsg = err.response.data;
+
+            errorResponseMsg && (errorMsg = errorResponseMsg);
+
+            setFlashMessage({
+                message: errorMsg,
+                type: "error",
+            });
         }
     };
 
@@ -47,13 +52,6 @@ export default function Signup() {
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="form">
-                    {notification && (
-                        <FlashMessage
-                            message={notificationMessage}
-                            displayTime={displayTime.current * 1000}
-                        />
-                    )}
-
                     <h2>Inscription</h2>
                     <hr className="my-1" />
 

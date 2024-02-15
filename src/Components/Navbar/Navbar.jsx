@@ -11,6 +11,7 @@ export default function Navbar() {
     const logout = async () => {
         try {
             removeCookie("token");
+            // TODO : Faire une vraie func de déconnexion / useAuth
             setIsLoggedIn(false);
             setFlashMessage({
                 message: "À bientôt sur Organize !",

@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useAuth } from "../../Contexts/AuthContext.jsx";
 import img1 from "../../img/img1.jpg";
@@ -21,21 +21,29 @@ export default function Login() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    // credentials: true,
+                    credentials: true,
                 }
             );
 
             if (loginStatus.request.status === 200) {
                 setCookie("token", loginStatus.data.result.token);
                 setIsLoggedIn(true);
-                redirect("/");
                 setFlashMessage({
                     message: "Bienvenue sur Organize !",
                 });
             }
         } catch (err) {
-            const errorMsg = err.response.data;
-            setFlashMessage(errorMsg);
+            // TODO : Redondance ! Exactement le meme code, juste le message change
+            let errorMsg = "Erreur lors de la connexion.";
+            console.log(err);
+            const errorResponseMsg = err.response.data;
+
+            errorResponseMsg && (errorMsg = errorResponseMsg);
+
+            setFlashMessage({
+                message: errorMsg,
+                type: "error",
+            });
         }
     };
 

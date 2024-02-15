@@ -13,6 +13,7 @@ export default function App() {
     const { isLoggedIn, setIsLoggedIn } = useAuth();
     const [cookies] = useCookies(["token"]);
 
+    // TODO : Je vérifie uniquement si le token est présent ? Pas bon du tout
     useEffect(() => {
         const token = cookies.token;
 

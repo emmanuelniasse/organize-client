@@ -34,7 +34,7 @@ export default function Expenses() {
                 `${process.env.REACT_APP_API_URI}/expenses`,
                 {
                     method: "GET",
-                    // credentials: "include",
+                    credentials: "include",
                     headers: {
                         Authorization: `Bearer ${cookies.token}`,
                     },
@@ -43,6 +43,7 @@ export default function Expenses() {
             setExpenses(expensesResult.data.result);
             setAreExpensesFetched(true);
         } catch (err) {
+            // TODO : Je ne veux pas logguer l'erreur, je veux la remonter à l'utilisateur
             console.log("Erreur lors de la requête (expenses) : " + err);
         }
     };
@@ -53,7 +54,7 @@ export default function Expenses() {
         }
     }, [areExpensesFetched]);
 
-    // PIN : BUTTON ACTIONS à transformer en composant
+    // TODO : BUTTON ACTIONS à transformer en composant
     // Affiche le formulaire au clic sur le bouton "Ajouter une classe"
     const handleAdd = () => {
         setIsAddFormVisible(true);
@@ -90,8 +91,6 @@ export default function Expenses() {
     // Stock l'id des items sélectionnés
     // `previousItems` représente la valeur précédente de l'état items
     const handleListItems = (completeExpense) => {
-        console.log(completeExpense);
-        console.log("complete expense ?");
         setItems((previousItems) => {
             if (previousItems.includes(completeExpense._id)) {
                 // Si l'élément est déjà présent, on le supprime du tableau
@@ -124,9 +123,9 @@ export default function Expenses() {
     return (
         <>
             <div className="expenses">
-                <h1 className="expenses__title title-page">Notes</h1>
+                <h1 className="expenses__title title-page">Dépenses</h1>
                 {/* 
-                    PIN :
+                    TODO :
                     CRUD BUTTONS À TRANSFORMER EN COMPOSANT
                 */}
                 <div className="expenses__buttons">
@@ -193,7 +192,7 @@ export default function Expenses() {
                             action="update"
                             setItems={setItems}
                             setCompleteItem={setCompleteItem}
-                            itemSelected={items} // PIN : itemSelected != completeItem (je souhaite avoir completeItem._id)
+                            itemSelected={items} // TODO : itemSelected != completeItem (je souhaite avoir completeItem._id)
                             completeItem={completeItem[0]}
                         />
                     </div>
@@ -232,14 +231,17 @@ export default function Expenses() {
                                 : "";
 
                             return (
+                                // TODO : passer la class item-selected à ExpenseItem pour éviter d'avoir un probleme d'affichage
                                 <li
                                     key={expense._id}
-                                    className={`expenses__list__item ${itemSelectedClass}`}
+                                    className="expenses__list__item"
+                                    // className={`expenses__list__item ${itemSelectedClass}`}
                                 >
                                     <ExpenseItem
                                         expense={expense}
                                         setIsItemSelected={setIsItemSelected}
                                         handleListItems={handleListItems}
+                                        itemSelectedClass={itemSelectedClass}
                                     />
                                 </li>
                             );

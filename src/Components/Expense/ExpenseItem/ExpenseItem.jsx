@@ -4,11 +4,12 @@ export default function ExpenseItem({
     expense,
     setIsItemSelected,
     handleListItems,
+    itemSelectedClass,
 }) {
-    const { bg, name, sum, description } = expense;
+    const { name, sum, description } = expense;
     return (
         <div
-            className={"expense " + bg}
+            className={"expense " + itemSelectedClass}
             onClick={() => {
                 setIsItemSelected(true);
                 handleListItems(expense);

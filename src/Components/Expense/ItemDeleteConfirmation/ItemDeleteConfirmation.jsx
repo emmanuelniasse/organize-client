@@ -28,7 +28,7 @@ export default function ItemDeleteConfirmation(props) {
                         `${process.env.REACT_APP_API_URI}/expenses/${itemId}`,
                         {
                             method: "DELETE",
-                            // credentials: "include",
+                            credentials: "include",
                             headers: {
                                 "Content-Type": "application/json",
                                 Authorization: `Bearer ${cookies.token}`,
@@ -39,7 +39,7 @@ export default function ItemDeleteConfirmation(props) {
                 })
             );
 
-            // PIN : Externaliser ce bout de code
+            // TODO : Externaliser ce bout de code
             const pluralSuffix = items.length > 1 ? "s" : "";
             const message = `Dépense${pluralSuffix} supprimée${pluralSuffix}`;
             setFlashMessage({

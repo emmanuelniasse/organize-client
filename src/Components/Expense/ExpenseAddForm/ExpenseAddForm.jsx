@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
-import { toast } from "../../../Components/Toast/Toast.jsx";
 import { useAuth } from "../../../Contexts/AuthContext.jsx";
 
 export default function ExpenseAddForm(props) {
@@ -33,11 +32,11 @@ export default function ExpenseAddForm(props) {
             switch (action) {
                 case "update":
                     await axios.put(
-                        `${process.env.REACT_APP_API_URI}/expenses/${itemSelected}`, // PIN : au lieu de itemSelected => completeItem._id ?
+                        `${process.env.REACT_APP_API_URI}/expenses/${itemSelected}`, // TODO : au lieu de itemSelected => completeItem._id ?
                         newExpense,
                         {
                             method: "PUT",
-                            // credentials: "include",
+                            credentials: "include",
                             headers: {
                                 "Content-Type": "application/json",
                                 Authorization: `Bearer ${cookies.token}`,
@@ -60,7 +59,7 @@ export default function ExpenseAddForm(props) {
                         newExpense,
                         {
                             method: "POST",
-                            // credentials: "include",
+                            credentials: "include",
                             headers: {
                                 "Content-Type": "application/json",
                                 Authorization: `Bearer ${cookies.token}`,
@@ -92,7 +91,7 @@ export default function ExpenseAddForm(props) {
                     `${process.env.REACT_APP_API_URI}/categories`,
                     {
                         method: "GET",
-                        // credentials: "include",
+                        credentials: "include",
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${cookies.token}`,
