@@ -35,7 +35,6 @@ export default function Login() {
         } catch (err) {
             // TODO : Redondance ! Exactement le meme code, juste le message change
             let errorMsg = "Erreur lors de la connexion.";
-            console.log(err);
             const errorResponseMsg = err.response.data;
 
             errorResponseMsg && (errorMsg = errorResponseMsg);

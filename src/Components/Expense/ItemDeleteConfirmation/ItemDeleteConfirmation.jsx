@@ -55,17 +55,15 @@ export default function ItemDeleteConfirmation(props) {
         setCompleteItem([]);
     };
     return (
-        <>
-            <form onSubmit={handleSubmit} className="form delete-form">
-                <div className="form__buttons">
-                    <div className="btn-cancel btn" onClick={handleCancel}>
-                        Annuler
-                    </div>
-                    <button className="btn-delete btn" type="submit">
-                        Confirmer la suppression
-                    </button>
+        <form onSubmit={handleSubmit} className="form delete-form">
+            <div className="form__buttons">
+                <div className="btn-cancel btn" onKeyUp={handleCancel}>
+                    Annuler
                 </div>
-            </form>
-        </>
+                <button className="btn-delete btn" type="submit">
+                    Confirmer la suppression
+                </button>
+            </div>
+        </form>
     );
 }
