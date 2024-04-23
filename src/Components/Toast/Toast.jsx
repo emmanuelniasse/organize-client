@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ToastContainerComponent = () => (
@@ -13,7 +13,8 @@ const ToastContainerComponent = () => (
         draggable
         pauseOnHover
         theme="light"
+        className="notification"
     />
 );
 
-export { toast, ToastContainerComponent };
+export { ToastContainerComponent, toast };

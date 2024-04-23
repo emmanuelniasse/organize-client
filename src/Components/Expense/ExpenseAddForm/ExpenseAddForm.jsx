@@ -22,7 +22,6 @@ export default function ExpenseAddForm(props) {
     const { register, handleSubmit } = useForm();
 
     // States
-    const [selectedOption, setSelectedOption] = useState("");
     const [categories, setCategories] = useState("");
     const [areCategoriesFetched, setAreCategoriesFetched] = useState(false);
     const [cookies, setCookie] = useCookies("");

@@ -21,16 +21,26 @@ export function AuthProvider(props) {
     useEffect(() => {
         switch (flashMessage.type) {
             case "success":
-                toast.success(flashMessage.message);
+                toast.success(
+                    <span className="success-notif">
+                        {flashMessage.message}
+                    </span>
+                );
                 break;
             case "error":
-                toast.error(flashMessage.message);
+                toast.error(
+                    <span className="error-notif">{flashMessage.message}</span>
+                );
                 break;
             default:
-                toast(flashMessage.message);
+                toast(
+                    <span className="default-notif">
+                        {flashMessage.message}
+                    </span>
+                );
                 break;
         }
-    }, [flashMessage, setFlashMessage]);
+    }, [flashMessage]);
 
     return (
         <AuthContext.Provider value={userInformations}>
