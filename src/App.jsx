@@ -9,9 +9,17 @@ import Signup from "./pages/Signup/Signup";
 
 import { useAuth } from "./Contexts/AuthContext.jsx";
 
+import mixpanel from 'mixpanel-browser';
+mixpanel.init('ed2d583bb6fc136bc88e69deca947a4d', {debug: true, track_pageview: true, persistence: 'localStorage'});
+mixpanel.identify('token')
+mixpanel.track('Sign Up', {
+'Signup Type': 'Referral'
+})
+
 export default function App() {
     const { isLoggedIn, setIsLoggedIn } = useAuth();
     const [cookies] = useCookies(["token"]);
+
 
     // TODO : Je vérifie uniquement si le token est présent ? Pas bon du tout
     useEffect(() => {
