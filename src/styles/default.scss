@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 // Components
 @import "../Components/Navbar/_Navbar.scss", "../Components/Footer/_Footer.scss",
     "../Components/Layout/_Layout.scss",
